@@ -1,0 +1,73 @@
+SRCS_FILES 	=	ft_atoi.c\
+			ft_bzero.c \
+			ft_calloc.c \
+			ft_isalnum.c \
+			ft_isalpha.c \
+			ft_isascii.c \
+			ft_isdigit.c \
+			ft_isprint.c \
+			ft_memchr.c \
+			ft_memcmp.c \
+			ft_memcpy.c \
+			ft_memmove.c \
+			ft_memset.c \
+			ft_split.c \
+			ft_strchr.c \
+			ft_strdup.c \
+			ft_strjoin.c \
+			ft_strlcat.c \
+			ft_strlcpy.c \
+			ft_strlen.c \
+			ft_strncmp.c \
+			ft_strnstr.c \
+			ft_strrchr.c \
+			ft_strtrim.c \
+			ft_substr.c \
+			ft_tolower.c \
+			ft_toupper.c \
+
+NAME = libft.a
+OBJS = $(SRCS_FILES:.c=.o)
+CC = gcc
+FLAGS = -Wall -Werror -Wextra
+ARCHIVE = ar -crs
+REMOVE = rm -rf
+SRCS_DIR = ./
+### Colour variables ###
+END			= \033[0m
+BOLD		= \033[1m
+ITALIC		= \033[3m
+URL			= \033[4m
+BLINK		= \033[5m
+BLINK2		= \033[6m
+SELECTED	= \033[7m
+
+BLACK		= \033[30m
+RED			= \033[31m
+GREEN		= \033[32m
+YELLOW		= \033[33m
+BLUE		= \033[34m
+VIOLET		= \033[35m
+BEIGE		= \033[36m
+WHITE		= \033[37m
+
+all: ${NAME}
+
+${NAME}: ${OBJS}
+	@${ARCHIVE} ${NAME} ${OBJS}
+	@echo "${OBJS} ${GREEN}${BOLD}\n\nObjects files are added to the archive libft.a correctly\n${END}"
+
+.c.o:
+	$(CC) ${FLAGS} -o $@ -c $<
+	@echo "${GREEN}Compilation OK!${END}"
+
+clean:
+	$(REMOVE) ${OBJS}
+	@echo "\n${GREEN}${BOLD}Objects files are deleted correcly\n${END}"
+
+fclean: clean
+	@${REMOVE} ${NAME}
+	@echo "\n${GREEN}${BOLD}Library are deleted too\n${END}"
+
+re: fclean all
+	@echo "${GREEN}${BOLD}Library are remaked correcly${END}"
