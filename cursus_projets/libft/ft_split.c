@@ -12,16 +12,16 @@
 #include "libft.h"
 
 // THE FUNCTION FOR COUNTING THE NUMBERS OF CHARACTERE INTO WORDS //
-static size_t	wordlenght(const char *s, const char c, size_t s_lenght)
+static size_t	wordlenght(const char *s, const char delemiter, size_t s_lenght)
 {
 	size_t	count_char;
 
 	count_char = 0;
 	while (s[s_lenght] != '\0')
 	{
-		if ((char)s[s_lenght] == c)
+		if ((char)s[s_lenght] == delemiter)
 			return (count_char);
-		while ((char)s[s_lenght] != c && s[s_lenght] != '\0')
+		while ((char)s[s_lenght] != delemiter && s[s_lenght] != '\0')
 		{
 			count_char++;
 			s_lenght++;
@@ -31,16 +31,16 @@ static size_t	wordlenght(const char *s, const char c, size_t s_lenght)
 }
 
 // THE FUNCTION FOR COUNTING THE NUMBER OF WORDS INTO THE STRING //
-static size_t	count_words(char *s, char c, size_t s_lenght, size_t word_count)
+static size_t	count_words(char *s, char delemiter, size_t s_lenght, size_t word_count)
 {
 	while (s[s_lenght] != '\0')
 	{
-		if (s[s_lenght] != c)
+		if (s[s_lenght] != delemiter)
 		{
 			word_count++;
-			while (s[s_lenght] != c && s[s_lenght] != '\0')
+			while (s[s_lenght] != delemiter && s[s_lenght] != '\0')
 				s_lenght++;
-			count_words(s, c, s_lenght, word_count);
+			count_words(s, delemiter, s_lenght, word_count);
 		}
 		else
 			s_lenght++;
@@ -71,7 +71,7 @@ char	**ft_split(char const *s, char c)
 	lenght_of_word = 0;
 	i_master_str = 0;
 	master_str = make_master_str(\
-		(count_words((char *)s, c, s_lenght, 0) + 1), 8);
+		(count_words((char *)s, c, s_lenght, 0) + 1), sizeof(char *));
 	while (s[s_lenght] != '\0')
 	{
 		while (s[s_lenght] == c)
