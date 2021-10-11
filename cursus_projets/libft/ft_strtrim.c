@@ -1,114 +1,75 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tchalifo <tchalifour91@gmail.com>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 12:28:52 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/09/24 12:28:54 by tchalifo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/* Les char dans le set ne doivent pas ce retrouver en debut et fin de phrase
+ * Tant qu un des char est egale a la position de la string il doit etre retire
+ * La fonction retournera la string sans ses characteres */
 
-#include "libft.h"
+// Une fonction pour verifier les char en debut de phrase apelle de la fonction ft_strchr inverse
 #include <stdio.h>
-static int	ft_getstart(const char *s, const char *set, size_t count)
+#include "libft.h"
+size_t getstart(const char *s, const char *set)
 {
-	size_t	j;
+    size_t  i;
 
-	j = 0;
-	while (set[j] != '\0')
-	{
-		if (s[count] == set[j])
-			ft_getstart(s, set, count++);
-		j++;
-	}
-	return (count);
+    i = 0;
+    while (s[i] != '\0')
+    {
+        if (ft_strchr(set, s[i]) == NULL)
+            break;
+        i++;
+    }
+    return (i);
 }
 
-int	main(void)
+size_t  getend(const char *s, const char *set)
 {
-	printf("%d\n", ft_getstart("   xxx   xxx", " x", 0));
-	return (0);
-}
+    size_t  i;
+    size_t  count;
 
+    i = ft_strlen(s) - 1;
+    count = 0;
+   // printf("GETEND A %zu\n", i);
+    while (i > 0)
+    {
+        if (ft_strchr(set, s[i]) == 0)
+            break;
+        i--;
+        count++;
+       // printf("GETEND B %zu\n", i);
+       // printf("GETEND C %zu\n", count);
+    }
+    return (count);
+}
+char	*ft_strtrim(const char *s1, const char *set)
+{
+    char    *s2;
+
+    if (getstart(s1, set) >= ft_strlen(s1))
+        return (0);
+    s2 = ft_substr(s1, getstart(s1, set), (ft_strlen(s1) - getstart(s1, set) - getend(s1, set)));
+    return (s2);
+}
 /*
-
-static int	ft_getstart(const char *s, const char *set)
+int main(void)
 {
-	size_t	i;
+    char    *s2;
+    char    *s1 = "a";
+    char    *set = "";
 
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (ft_strchr(set, s[i]) == 0)
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-*/
-
-
-/*
-
-
-static int	ft_getend(const char *s, const char *set)
-{
-	size_t	i_lenght;
-	size_t	i;
-
-	i_lenght = ft_strlen(s) - 1;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[0] == set[0])
-		{
-			while (s[i_lenght + i] == set[i] && set[i] != '\0')
-				i_lenght--;
-				i++;
-		}
-		printf("GETEND%zu\n", i);
-		i++;
-	}
-	return (i);
-}
-
-*/
-/*
-
-static int	ft_getend(const char *s, const char *set)
-{
-	size_t	i_lenght;
-	size_t	i;
-
-	i_lenght = ft_strlen(s) - 1;
-	i = 0;
-	while (s[i_lenght] > 0)
-	{
-		if (ft_strchr(set, s[i_lenght]) == 0)
-			break ;
-		i_lenght--;
-		i++;
-	}
-	return (i);
+   // printf("%zu\n", getstart("bonjour", "bor"));
+   // printf("%zu\n", getend("bonjour", "bor"));
+    printf("%zu\n", getend(s1, set));
+    printf("%zu\n", getstart(s1, set));
+    s2 = ft_strtrim(s1, set);
+    printf("%s\n", s2);
+    return (0);
 }
 */
+// Unn fonction pour verifier les char en fin de phrase
+
+
+// Fonction principal appel de la fonction ft_substr pour copie ft_substr(char const *s, unsigned int start, size_t len)
 /*
 char	*ft_strtrim(const char *s1, const char *set)
 {
-	char	*s2;
 
-	s2 = ft_substr(s1, (unsigned int) ft_getstart(s1, set, 0),\
-     (ft_strlen(s1) - (ft_getstart(s1, set, 0))) - ft_getend(s1, set));
-	return (s2);
 }
-
-#include <stdio.h>
-int main(void)
-{
-	printf("%s\n", ft_strtrim("abcd", "ab"));
-}
-
 */
