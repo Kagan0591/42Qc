@@ -14,7 +14,7 @@
 static int numlen(int n)
 {
     int count;
-
+    printf("NUMLEN n var %d\n", n);
     count = 1;
     if (n < 0)
     {
@@ -26,13 +26,14 @@ static int numlen(int n)
         n = n / 10;
         count++;
     }
+    printf("NUMLEN count var %d\n", n);
     return (count);
 }
 
 char *ft_itoa(int n)
 {
     char    *str;
-
+    printf("test\n");
     if (!(str = malloc(numlen(n) + 1)))
         return (0);
     if (n == -2147483648)
@@ -55,8 +56,8 @@ char *ft_itoa(int n)
 
 int main(void)
 {
-    int     nbr = -12345;
-
+    int     nbr = -2147483648;
+    printf("test main\n");
     printf("%s\n", ft_itoa(nbr));
     return (0);
 }
