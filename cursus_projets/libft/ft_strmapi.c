@@ -7,23 +7,27 @@
  * Dans la foncition une protection pour malloc et si
  * la chaine s est vide est de mis */
 
-char *ft_strmapi(char const *s, char (*f)(unsigned int, char))
+/* La fonction va comme suit. Une chaine est cree pour le retour de valeur de la fonction ft_strmapi.
+ * Puis, une variable de comptage est initialiser a 0 pour defiler la chiane s1 passer en
+ * parametre de la fonction f. Ensuite la */
+#include "libft.h"
+
+char    *ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
     char    *sptr;
     size_t  i;
 
+    i = 0;
     if (!s)
         return (0);
-    sptr = (char *)malloc((char *) * (ft_strlen(s) + 1));
+    sptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+    if (!sptr)
+        return (0);
+    while (s[i])
+   	{
+    	sptr[i] = (*f)(i, s[i]);
+    	i++;
+    }
+    sptr[i]  = '\0';
     return (sptr);
-}
-
-char    *f(unsigned int, )
-
-int main(void)
-{
-    char    *s1 = "Bonjour";
-    char    *s2;
-
-    s2 = ft_strmapi()
 }

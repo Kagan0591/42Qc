@@ -1,5 +1,5 @@
-
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strtrim(const char *s1, const char *set)
 {
@@ -20,10 +20,7 @@ char	*ft_strtrim(const char *s1, const char *set)
     return (s2);
 }
 
-
-#include <stdio.h>
-#include <string.h>
-
+/*
 int main(void)
 {
     char    *s2;
@@ -35,4 +32,4 @@ int main(void)
     printf("%s\n", s2);
     return (0);
 }
-
+*/

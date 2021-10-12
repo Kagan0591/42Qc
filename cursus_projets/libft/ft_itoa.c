@@ -10,7 +10,8 @@
  * le nombre de chiffre.
 */
 #include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
+
 static int numlen(int n)
 {
     int count;
@@ -32,31 +33,46 @@ static int numlen(int n)
 char *ft_itoa(int n)
 {
     char    *str;
+    int     i;
 
+    i = 0;
+    if (n == -2147483648)
+        return (ft_strdup("-2147483648"));
     if (!(str = malloc(numlen(n) + 1)))
         return (0);
-    if (n == -2147483648)
-        return ("-2147483648");
-    else if (n < 0)
+    i = (numlen(n));
+    if (n < 0)
     {
         str[0] = '-';
         n = n * -1;
     }
-    *str = (numlen(n) + 1);
-    str = '\0';
+    //i = (numlen(n) + 1);
+    str[i--] = '\0';
     while (n > 9)
     {
-        *str-- = n % 10;
+        str[i--] = (n % 10) + 48;
         n = n / 10;
     }
-    *str = n;
+    str[i] = n + 48;
     return (str);
 }
-
+/*
 int main(void)
 {
-    int     nbr = -12345;
-
+    int     nbr = -2147483648;
+    printf("La valeur int min devrait etre -2147483648, La fonction retourne:\n");
+    printf("%s\n\n", ft_itoa(nbr));
+    nbr = 2147483647;
+    printf("La valeur int max devrait etre 2147483647, La fonction retourne:\n");
+    printf("%s\n\n", ft_itoa(nbr));
+    nbr = -1234;
+    printf("La valeur tester est -1234, La fonction retourne:\n");
+    printf("%s\n", ft_itoa(nbr));
+    nbr = 1234;
+    printf("La valeur tester est 1234, La fonction retourne:\n");
     printf("%s\n", ft_itoa(nbr));
     return (0);
 }
+
+*/
+// La fonction bug avec les int positif pas d<affichage ...
