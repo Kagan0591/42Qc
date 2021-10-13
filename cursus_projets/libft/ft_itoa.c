@@ -56,7 +56,7 @@ char *ft_itoa(int n)
     str[i] = n + 48;
     return (str);
 }
-/*
+
 int main(void)
 {
     int     nbr = -2147483648;
@@ -71,8 +71,9 @@ int main(void)
     nbr = 1234;
     printf("La valeur tester est 1234, La fonction retourne:\n");
     printf("%s\n", ft_itoa(nbr));
+    nbr = 0;
+    printf("La valeur tester est 0, La fonction retourne:\n");
+    printf("%s\n", ft_itoa(nbr));
     return (0);
 }
 
-*/
-// La fonction bug avec les int positif pas d<affichage ...
