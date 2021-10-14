@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tchalifo <tchalifour91@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/14 10:56:42 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/14 10:56:52 by tchalifo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 /* Alloue (avec malloc(3)) et retourne une chaine de
  * caractères représentant l’integer reçu en argument.
@@ -7,9 +18,8 @@
 
 /* 1. Gerer les negatifs, une '-' devra etre present a str[0]
  * 2. Malloc avec une protection, Devra avoir une fonction pour
- * le nombre de chiffre.
-*/
-#include <stdio.h>
+ * le nombre de chiffre. */
+
 #include "libft.h"
 
 static int numlen(int n)
@@ -56,24 +66,3 @@ char *ft_itoa(int n)
     str[i] = n + 48;
     return (str);
 }
-
-int main(void)
-{
-    int     nbr = -2147483648;
-    printf("La valeur int min devrait etre -2147483648, La fonction retourne:\n");
-    printf("%s\n\n", ft_itoa(nbr));
-    nbr = 2147483647;
-    printf("La valeur int max devrait etre 2147483647, La fonction retourne:\n");
-    printf("%s\n\n", ft_itoa(nbr));
-    nbr = -1234;
-    printf("La valeur tester est -1234, La fonction retourne:\n");
-    printf("%s\n", ft_itoa(nbr));
-    nbr = 1234;
-    printf("La valeur tester est 1234, La fonction retourne:\n");
-    printf("%s\n", ft_itoa(nbr));
-    nbr = 0;
-    printf("La valeur tester est 0, La fonction retourne:\n");
-    printf("%s\n", ft_itoa(nbr));
-    return (0);
-}
-

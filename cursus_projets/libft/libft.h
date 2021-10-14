@@ -18,6 +18,12 @@
 # include <stdlib.h>
 # include <string.h>
 
+typedef struct t_list
+{
+    void          *content;
+    struct t_list *next;
+}                 t_list;
+
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -52,4 +58,5 @@ char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+t_list  *ft_lstnew(void *content);
 #endif
