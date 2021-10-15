@@ -33,6 +33,8 @@ SRCS_FILES 	=	ft_atoi.c\
 			ft_tolower.c \
 			ft_toupper.c \
 			ft_lstnew.c \
+			ft_lstsize.c \
+			ft_lstadd_front.c\
 
 NAME = libft.a
 OBJS = $(SRCS_FILES:.c=.o)
