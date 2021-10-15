@@ -12,10 +12,23 @@ t_list  *ft_lstnew(void *content)
     }
     return (new_element);
 }
-
+/*
 void    ft_lstadd_front(t_list **alst, t_list *new)
 {
+    if (alst || new)
+    {
+        new->next = *alst;
+        *alst = new;
+    }
+}
 
+t_list *ft_lstlast(t_list *lst)
+{
+    while (lst->next != NULL)
+    {
+        lst = lst->next;
+    }
+    return (lst);
 }
 
 int		main(void)
@@ -31,3 +44,4 @@ int		main(void)
 	printf("\n%s\n", new_element->content);
 }
 
+*/

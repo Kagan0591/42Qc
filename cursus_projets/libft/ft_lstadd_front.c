@@ -29,6 +29,7 @@ void ft_lstadd_front(t_list **alst, t_list *new)
     }
 }
 
+/*
 int main(void)
 {
 	char	str1[] = "On en a";
@@ -45,3 +46,4 @@ int main(void)
     printf("%s\n", new_element->next->content);
     return (0);
 }
+*/
