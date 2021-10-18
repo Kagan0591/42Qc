@@ -2,6 +2,11 @@
     "files.associations": {
         "__functional_base": "c",
         "libft.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+        "editor.renderWhitespace": "all",
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
     }
 }

@@ -22,7 +22,7 @@
 
 #include "libft.h"
 
-static int numlen(int n)
+static int  numlen(int n)
 {
     int count;
 
