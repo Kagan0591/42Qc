@@ -3,50 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tchalifo <tchalifour91@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:37:48 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/19 10:09:35 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/01 16:38:04 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-static size_t	wordlenght(const char *s, const char delemiter, size_t i_s)
+// THE FUNCTION FOR COUNTING THE NUMBERS OF CHARACTERE INTO WORDS //
+static size_t	wordlenght(const char *s, const char delemiter, size_t s_lenght)
 {
 	size_t	count_char;
 
 	count_char = 0;
-	while (s[i_s] != '\0')
+	while (s[s_lenght] != '\0')
 	{
-		if ((char)s[i_s] == delemiter)
+		if ((char)s[s_lenght] == delemiter)
 			return (count_char);
-		while ((char)s[i_s] != delemiter && s[i_s] != '\0')
+		while ((char)s[s_lenght] != delemiter && s[s_lenght] != '\0')
 		{
 			count_char++;
-			i_s++;
+			s_lenght++;
 		}
 	}
 	return (count_char);
 }
 
-static size_t	count_words(char *s, char delemiter, size_t i_s, size_t count)
+// THE FUNCTION FOR COUNTING THE NUMBER OF WORDS INTO THE STRING //
+static size_t	count_words(char *s, char delemiter, size_t s_lenght, size_t word_count)
 {
-	while (s[i_s] != '\0')
+	while (s[s_lenght] != '\0')
 	{
-		if (s[i_s] != delemiter)
+		if (s[s_lenght] != delemiter)
 		{
-			count++;
-			while (s[i_s] != delemiter && s[i_s] != '\0')
-				i_s++;
-			count_words(s, delemiter, i_s, count);
+			word_count++;
+			while (s[s_lenght] != delemiter && s[s_lenght] != '\0')
+				s_lenght++;
+			count_words(s, delemiter, s_lenght, word_count);
 		}
 		else
-			i_s++;
+			s_lenght++;
 	}
-	return (count);
+	return (word_count);
 }
-
-static void	makestr(char *string_source, char **string_master, char c)
+// THE FUNCTION FOR COPYING EACH STRING OF WORD INTO THE MASTER STRING //
+static void    makestr(char *string_source, char **string_master, char c)
 {
 	size_t	string_source_lenght;
 	size_t	i_string_master;
@@ -63,8 +65,7 @@ static void	makestr(char *string_source, char **string_master, char c)
 		if (lenght_of_word != 0)
 		{
 			string_master[i_string_master] = ft_substr(\
-				string_source, (unsigned int) string_source_lenght, \
-					lenght_of_word);
+				string_source, (unsigned int) string_source_lenght, lenght_of_word);
 			string_source_lenght = string_source_lenght + lenght_of_word;
 			i_string_master++;
 		}
@@ -72,6 +73,7 @@ static void	makestr(char *string_source, char **string_master, char c)
 	string_master[i_string_master] = 0;
 }
 
+// THE MASTER FUNCTION ORCHESTRING THE SPLIT //
 char	**ft_split(char const *s, char c)
 {
 	size_t	lenght_of_word;

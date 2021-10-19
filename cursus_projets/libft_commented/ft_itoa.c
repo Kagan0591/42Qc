@@ -10,6 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/* Alloue (avec malloc(3)) et retourne une chaine de
+ * caractères représentant l’integer reçu en argument.
+ * Les nombres négatifs doivent être gérés.
+ * Valeur de retour est la chaine de caractères représentant l’integer.
+ * NULL si l’allocation échoue. */
+
+/* 1. Gerer les negatifs, une '-' devra etre present a str[0]
+ * 2. Malloc avec une protection, Devra avoir une fonction pour
+ * le nombre de chiffre. */
+
 #include "libft.h"
 
 static int	numlen(int n)

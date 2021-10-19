@@ -11,30 +11,16 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-/*
+
 char	*ft_strdup(const char *s1)
 {
-	char	*mem;
-	size_t	s_lenght;
+	char	*s2;
+	size_t	i_s1;
 
-	s_lenght = ft_strlen(s1) + 1;
-	mem = malloc(sizeof(*mem) * s_lenght);
-	if (!mem)
+	i_s1 = ft_strlen(s1) + 1;
+	s2 = malloc(sizeof(*s2) * i_s);
+	if (!s2)
 		return (0);
-	ft_strlcpy(mem, s1, s_lenght);
-	return (mem);
-}
-*/
-
-char    *ft_strdup(const char *s1)
-{
-    char    *ptr;
-    size_t    i;
-
-    i = ft_strlen(s1) + 1;
-    ptr = malloc(sizeof(*ptr) * i);
-    if (!ptr)
-        return (0);
-    ft_strlcpy(ptr, s1, i);
-    return (ptr);
+	ft_strlcpy(s2, s1, i_s1);
+	return (s2);
 }

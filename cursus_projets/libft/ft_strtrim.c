@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tchalifo <tchalifour91@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/19 08:58:39 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/19 08:58:42 by tchalifo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strtrim(const char *s1, const char *set)
 {
@@ -18,16 +29,4 @@ char	*ft_strtrim(const char *s1, const char *set)
 		size--;
 	s2 = ft_substr(s1, 0, size + 1);
 	return (s2);
-}
-
-int main(void)
-{
-	char	*s2;
-	char	*s1 = "";
-	char	*set = "";
-
-	s2 = ft_strtrim(s1, set);
-	printf("Comparaison %d\n", strcmp(s2, ""));
-	printf("%s\n", s2);
-	return (0);
 }
