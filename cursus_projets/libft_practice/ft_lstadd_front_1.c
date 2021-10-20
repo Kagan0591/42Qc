@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_front_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 10:59:48 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/20 12:07:33 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/20 13:09:09 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/20 16:44:10 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void ft_lstadd_front(t_list **alst, t_list *new)
 {
-	size_t	i;
-
-	i = 0;
-	while (s && s[i])
+	if (alst || new)
 	{
-		write(fd, &s[i], 1);
-		i++;
+		new->next = *alst;
+		*alst = new;
 	}
 }
+/*
+int	main(void)
+{
+	t_list	*my_list;
+
+	my_list = ft_lstnew((char *) "bonjour");
+	ft_lstadd_front(&my_list, ft_lstnew((char *) "comment sa va ?"));
+	while (my_list != NULL)
+	{
+		printf("%s\n", my_list->content);
+		my_list = my_list->next;
+	}
+	return (0);
+}
+*/

@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:36:19 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/19 17:02:10 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:18:36 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst || !f)
 		return (0);
-	new_lst = ft_lstnew(f(lst->content));
-	new_element = new_lst;
+	new_element = ft_lstnew(f(lst->content));
+	new_lst = new_element;
 	while (lst)
 	{
 		lst = lst->next;
@@ -42,10 +42,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		{
 			ft_lstclear(&new_lst, del);
 			return (0);
-		}
 		ft_lstadd_back(&new_lst, new_element);
 	}
-
 	return (new_element);
 }
 
