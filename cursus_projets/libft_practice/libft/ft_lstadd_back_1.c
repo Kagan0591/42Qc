@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 14:37:49 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/20 16:44:32 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/21 09:57:17 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void ft_lstadd_back(t_list **alst, t_list *new)
 		last_node->next = new;
 	}
 }
-
+/*
 int	main(void)
 {
 	t_list	*my_list;
@@ -39,3 +39,4 @@ int	main(void)
 	}
 	return (0);
 }
+*/

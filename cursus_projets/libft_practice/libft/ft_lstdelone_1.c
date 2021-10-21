@@ -8,7 +8,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 		free(lst);
 	}
 }
-
+/*
 void	del(void * element)
 {
 	char	*str;
@@ -32,4 +32,4 @@ int	main(void)
 	}
 	return (0);
 }
-
+*/

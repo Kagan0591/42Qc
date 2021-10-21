@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 13:57:15 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/19 13:52:20 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:23:06 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-typedef struct t_list
+typedef struct		t_list
 {
 	void			*content;
 	struct t_list	*next;

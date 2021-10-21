@@ -1,11 +1,12 @@
-SRCS_FILES 	= ft_lstnew.c \
-			ft_lstsize.c \
-			ft_lstadd_front.c \
-			ft_lstlast.c \
-			ft_lstadd_back.c \
-			ft_lstdelone.c \
-			ft_lstclear.c \
-			ft_lstiter.c \
+SRCS_FILES 	= ft_lstnew_2.c \
+			ft_lstsize_1.c \
+			ft_lstadd_front_1.c \
+			ft_lstlast_1.c \
+			ft_lstadd_back_1.c \
+			ft_lstdelone_1.c \
+			ft_lstclear_1.c \
+			ft_lstiter_1.c \
+			ft_lstmap_1.c \
 
 NAME = libft.a
 OBJS = $(SRCS_FILES:.c=.o)

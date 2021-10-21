@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_2.c                                      :+:      :+:    :+:   */
+/*   ft_lstadd_front_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 11:46:32 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/20 16:33:14 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/20 13:09:09 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/21 09:57:09 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void ft_lstadd_front(t_list **alst, t_list *new)
 {
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (new_node != NULL)
+	if (alst || new)
 	{
-		new_node->content = content;
-		new_node->next = NULL;
+		new->next = *alst;
+		*alst = new;
 	}
-	return (new_node);
 }
-
 /*
 int	main(void)
 {
 	t_list	*my_list;
 
 	my_list = ft_lstnew((char *) "bonjour");
-	printf("%s\n", my_list->content);
+	ft_lstadd_front(&my_list, ft_lstnew((char *) "comment sa va ?"));
+	while (my_list != NULL)
+	{
+		printf("%s\n", my_list->content);
+		my_list = my_list->next;
+	}
 	return (0);
 }
 */
