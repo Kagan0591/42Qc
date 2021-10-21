@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 09:18:08 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:13:25 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/19 10:57:59 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/19 10:58:42 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	numbers;
-	int	negative;
-
-	numbers = 0;
-	negative = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
 	{
-		if (*str == '-')
-			negative = negative * -1;
-		str++;
+		lst = lst->next;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		numbers = (numbers * 10) + (*str - 48);
-		str++;
-	}
-	return (numbers * negative);
+	return (lst);
 }

@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 09:18:08 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:13:25 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/09/24 09:10:05 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/19 13:33:07 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_strdup(const char *s1)
 {
-	int	numbers;
-	int	negative;
+	char	*s2;
+	size_t	i_s1;
 
-	numbers = 0;
-	negative = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			negative = negative * -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		numbers = (numbers * 10) + (*str - 48);
-		str++;
-	}
-	return (numbers * negative);
+	i_s1 = ft_strlen(s1) + 1;
+	s2 = malloc(sizeof(*s2) * i_s1);
+	if (!s2)
+		return (0);
+	ft_strlcpy(s2, s1, i_s1);
+	return (s2);
 }

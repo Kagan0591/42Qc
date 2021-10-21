@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 09:18:08 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:13:25 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/19 13:25:30 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/19 13:30:41 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* Itère sur la list lst et applique la fonction f au contenu chaque élément.
+ *
+ * Prototypes
+ * #1 L’adresse du pointeur vers un élément.
+ * #2. L’adresse de la fonction à appliquer. */
+
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int	numbers;
-	int	negative;
-
-	numbers = 0;
-	negative = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	while (lst)
 	{
-		if (*str == '-')
-			negative = negative * -1;
-		str++;
+		f(lst->content);
+		lst = lst->next;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		numbers = (numbers * 10) + (*str - 48);
-		str++;
-	}
-	return (numbers * negative);
 }

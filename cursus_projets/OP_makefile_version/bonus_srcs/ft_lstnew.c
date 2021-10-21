@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 09:18:08 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:13:25 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/19 10:59:50 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/19 12:05:24 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+t_list	*ft_lstnew(void *content)
 {
-	int	numbers;
-	int	negative;
+	t_list	*new_element;
 
-	numbers = 0;
-	negative = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	new_element = malloc(sizeof(t_list));
+	if (new_element)
 	{
-		if (*str == '-')
-			negative = negative * -1;
-		str++;
+		new_element->content = content;
+		new_element->next = 0;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		numbers = (numbers * 10) + (*str - 48);
-		str++;
-	}
-	return (numbers * negative);
+	return (new_element);
 }

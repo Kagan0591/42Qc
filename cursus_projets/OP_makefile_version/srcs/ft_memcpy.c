@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tchalifo <tchalifour91@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/20 13:50:42 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:13:30 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/09/20 13:52:05 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/09/20 13:52:06 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	ft_memset(s, 0, n);
+	char		*d;
+	const char	*s;
+
+	d = dst;
+	s = src;
+	while (n-- > 0)
+	{
+		if (d != s)
+			*d = *s;
+		d++;
+		s++;
+	}
+	return (dst);
 }

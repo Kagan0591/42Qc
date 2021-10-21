@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/24 09:18:08 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:13:25 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/19 12:03:33 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/19 12:04:46 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	int	numbers;
-	int	negative;
+	t_list	*tmp;
 
-	numbers = 0;
-	negative = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	if (lst)
 	{
-		if (*str == '-')
-			negative = negative * -1;
-		str++;
+		while (*lst)
+		{
+			tmp = (*lst)->next;
+			ft_lstdelone((*lst), del);
+			(*lst) = tmp;
+		}
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		numbers = (numbers * 10) + (*str - 48);
-		str++;
-	}
-	return (numbers * negative);
 }

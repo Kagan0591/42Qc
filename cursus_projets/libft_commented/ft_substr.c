@@ -6,9 +6,13 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 09:11:01 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/21 15:28:54 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/21 13:53:04 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* je dois trouver l'occurence et revoyer len nombre de
+ * charactère dans une chaine cree avec malloc. Elle aura
+ * la grandeur de l occurrence a copier*/
 
 #include "libft.h"
 
