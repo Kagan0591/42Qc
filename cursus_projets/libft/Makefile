@@ -93,3 +93,5 @@ fclean: clean
 
 re: fclean all
 	@echo "${GREEN}${BOLD}Library are remaked correcly${END}"
+
+.PHONY: clean fclean all re bonus
