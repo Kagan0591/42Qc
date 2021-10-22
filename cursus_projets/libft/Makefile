@@ -1,4 +1,4 @@
-SRCS_FILES 	=	ft_atoi.c\
+SRCS_FILES =	ft_atoi.c\
 			ft_bzero.c \
 			ft_calloc.c \
 			ft_isalnum.c \
@@ -32,7 +32,8 @@ SRCS_FILES 	=	ft_atoi.c\
 			ft_substr.c \
 			ft_tolower.c \
 			ft_toupper.c \
-			ft_lstnew.c \
+
+BONUS_SRCS_FILES = 	ft_lstnew.c \
 			ft_lstsize.c \
 			ft_lstadd_front.c \
 			ft_lstlast.c \
@@ -44,6 +45,7 @@ SRCS_FILES 	=	ft_atoi.c\
 
 NAME = libft.a
 OBJS = $(SRCS_FILES:.c=.o)
+BONUS_OBJS = $(BONUS_SRCS_FILES:.c=.o)
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
 ARCHIVE = ar -crs
@@ -73,12 +75,16 @@ ${NAME}: ${OBJS}
 	@${ARCHIVE} ${NAME} ${OBJS}
 	@echo "${OBJS} ${GREEN}${BOLD}\n\nObjects files are added to the archive libft.a correctly\n${END}"
 
+bonus: ${NAME} ${BONUS_OBJS}
+	@${ARCHIVE} ${NAME} ${BONUS_OBJS}
+	@echo "${BONUS_OBJS} ${GREEN} ${BOLD}\n\nObjects files And bonus objects files are added to the archive libft.a correctly\n${END}"
+
 .c.o:
 	$(CC) ${FLAGS} -o $@ -c $<
 	@echo "${GREEN}Compilation OK!${END}"
 
 clean:
-	$(REMOVE) ${OBJS}
+	$(REMOVE) ${OBJS} ${BONUS_OBJS}
 	@echo "\n${GREEN}${BOLD}Objects files are deleted correcly\n${END}"
 
 fclean: clean

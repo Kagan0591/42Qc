@@ -33,26 +33,26 @@ static int	numlen(int n)
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		i;
+	int		i_str;
 
-	i = 0;
+	i_str = 0;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	str = malloc(numlen(n) + 1);
 	if (!str)
 		return (0);
-	i = (numlen(n));
+	i_str = (numlen(n));
 	if (n < 0)
 	{
 		str[0] = '-';
 		n = n * -1;
 	}
-	str[i--] = '\0';
+	str[i_str--] = '\0';
 	while (n > 9)
 	{
-		str[i--] = (n % 10) + 48;
+		str[i_str--] = (n % 10) + 48;
 		n = n / 10;
 	}
-	str[i] = n + 48;
+	str[i_str] = n + 48;
 	return (str);
 }

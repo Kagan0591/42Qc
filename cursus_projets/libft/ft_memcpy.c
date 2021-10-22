@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tchalifo <tchalifour91@gmail.com>          +#+  +:+       +#+        */
+/*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 13:52:05 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/09/20 13:52:06 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/22 10:04:56 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char		*d;
-	const char	*s;
+	char		*ptr_dst;
+	const char	*ptr_src;
 
-	d = dst;
-	s = src;
+	ptr_dst = dst;
+	ptr_src = src;
 	while (n-- > 0)
 	{
-		if (d != s)
-			*d = *s;
-		d++;
-		s++;
+		if (ptr_dst != ptr_src)
+			*ptr_dst = *ptr_src;
+		ptr_dst++;
+		ptr_src++;
 	}
 	return (dst);
 }
