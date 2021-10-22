@@ -6,12 +6,12 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 13:57:15 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/22 10:39:55 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/22 10:53:14 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __LIBFT_H__
-# define __LIBFT_H__
+#ifndef LIBFT_H
+# define LIBFT_H
 
 # include <stddef.h>
 # include <unistd.h>
