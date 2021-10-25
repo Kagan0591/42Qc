@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 11:00:09 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/25 15:31:03 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/10/25 12:55:19 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/10/25 13:09:27 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	ft_putnbr_fd(int n, int fd)
-{
-	long	nbr;
+#include <stdlib.h>
+#include <string.h>
 
-	nbr = n;
-	if (nbr < 0)
-	{
-		ft_putchar_fd('-', fd);
-		nbr *= -1;
-	}
-	if ((nbr / 10) != 0)
-		ft_putnbr_fd(nbr / 10, fd);
-	ft_putchar_fd((nbr % 10) + 48, fd);
-}
+char *get_next_line(int fd);
+
+#endif
