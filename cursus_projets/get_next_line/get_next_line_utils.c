@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/26 14:02:43 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/27 09:13:35 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,71 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (s3);
 	}
 	return (NULL);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i_s;
+
+	i_s = 0;
+	while (s[i_s] != '\0')
+		i_s++;
+	return (i_s);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	srclenght;
+
+	srclenght = ft_strlen(src);
+	if (dstsize == 0)
+		return (srclenght);
+	while (*src && dstsize-- > 1)
+	{
+		*dst = *src;
+		dst++;
+		src++;
+	}
+	*dst = '\0';
+	return (srclenght);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i_dest;
+	size_t	i_src;
+	size_t	destlenght;
+	size_t	srclenght;
+
+	i_dest = 0;
+	i_src = 0;
+	destlenght = ft_strlen(dst);
+	srclenght = ft_strlen((char *)src);
+	if (dstsize < destlenght)
+		return (dstsize + srclenght);
+	while (dst[i_dest])
+		i_dest++;
+	while (src[i_src] && (i_dest + 1) < dstsize)
+	{
+		dst[i_dest] = src[i_src];
+		i_dest++;
+		i_src++;
+	}
+	dst[i_dest] = '\0';
+	return (destlenght + srclenght);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	char	*str;
+
+	str = b;
+	while (len--)
+		*str++ = (unsigned char)c;
+	return (b);
 }

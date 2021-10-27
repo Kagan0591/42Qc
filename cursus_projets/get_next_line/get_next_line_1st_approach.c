@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:05:22 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/26 16:53:28 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/27 16:37:50 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,23 @@
 static int test;
 char	*get_next_line(int fd)
 {
-	char	*buffer;
+	char	*buffer1;
 	char	*buffer2;
 	size_t	count_chars;
 
-	buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	buffer1 = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
 	buffer2 = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
 	count_chars = 0;
-	count_chars = read(fd, buffer, BUFFER_SIZE);
-	printf("1 st read call %zu\n", count_chars);
-	printf("1 st read call %s\n", buffer);
-	count_chars = read(fd, buffer, BUFFER_SIZE);
-	printf("2nd read call %zu\n", count_chars);
-	printf("2nd read call %s\n", buffer);
-	buffer[BUFFER_SIZE + 1] = '\0';
-	test = 29;
-	printf("\n%d\n", test);
+	while (read(fd, buffer1, BUFFER_SIZE) != 0)
+	{
+		buffer2 = ft_strjoin(buffer2, buffer1);
+		bzero(buffer1, BUFFER_SIZE);
+	}
+	printf("%s\n", buffer2);
+	//test = 29;
+	//printf("\n%d\n", test);
 
-	return (buffer);
+	return (buffer1);
 }
 
 #include <fcntl.h>
