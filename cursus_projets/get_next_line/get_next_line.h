@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:55:19 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/27 09:13:54 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/28 12:30:44 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <unistd.h>
 
 char	*get_next_line(int fd);
+char	*ft_strchr_and_destroy(const char *s, char *keep, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);

@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/27 09:13:35 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/28 12:09:06 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (s3);
 	}
 	return (NULL);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, 0, n);
 }
 
 size_t	ft_strlen(const char *s)
