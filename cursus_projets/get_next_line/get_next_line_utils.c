@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/28 12:09:06 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/29 17:51:03 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,36 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (NULL);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*dst;
+	printf("%s\n", s);
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > ft_strlen(s))
+		len = (ft_strlen(s) - start);
+	dst = (char *) malloc(sizeof(char) * (len + 1));
+	if (!dst)
+		return (0);
+	ft_strlcpy(dst, ((char *)s + start), (len + 1));
+	return (dst);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*s2;
+	size_t	i_s1;
+
+	i_s1 = ft_strlen(s1) + 1;
+	s2 = malloc(sizeof(*s2) * i_s1);
+	if (!s2)
+		return (0);
+	ft_strlcpy(s2, s1, i_s1);
+	return (s2);
+}
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	i_s;
@@ -49,7 +79,6 @@ size_t	ft_strlen(const char *s)
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	srclenght;
-
 	srclenght = ft_strlen(src);
 	if (dstsize == 0)
 		return (srclenght);

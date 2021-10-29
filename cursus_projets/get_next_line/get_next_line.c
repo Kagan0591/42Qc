@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_1st_approach.c                       :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:05:22 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/28 12:29:28 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/10/29 17:55:28 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,44 @@
 char	*get_line(int fd)
 {
 	char		*buffer1;
-	char		*buffer2;
+	char		*line;
 	static char *keep_the_rest;
-	size_t		buffer2_lenght;
+	size_t		line_lenght;
 	int			bytes_read;
+	int	nbr_of_while;
 
+	nbr_of_while = 0;
 	buffer1 = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
 	if (!buffer1)
 		return (0);
 	bytes_read = 1;
-	buffer2_lenght = 0;
-	printf("%zu\n", buffer2_lenght);
-	buffer2 = keep_the_rest;
-	while (bytes_read != 0 && bytes_read != -1 && buffer2[buffer2_lenght] != '\n')
+	line_lenght = 0;
+	if (keep_the_rest)
+		line = ft_substr(keep_the_rest, 0, BUFFER_SIZE);
+	else
+		line = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	while (bytes_read != 0)
 	{
+		nbr_of_while++;
 		bytes_read = read(fd, buffer1, BUFFER_SIZE);
-		buffer1 = ft_strchr_and_destroy(buffer1, keep_the_rest, '/n');
-		buffer2 = ft_strjoin(buffer2, buffer1);
-		buffer2_lenght = ft_strlen(buffer2);
+		if (bytes_read == -1)
+		{
+			free(buffer1);
+			return (0);
+		}
+		buffer1 = ft_strchr_and_destroy(buffer1, &keep_the_rest, '\n');
+		line = ft_strjoin(line, buffer1);
+		line_lenght = ft_strlen(line);
+		ft_memset(buffer1, '\0', ft_strlen(buffer1));
+		if (line[line_lenght - 1] == '\n')
+			break;
 	}
 	free(buffer1);
-	printf("%s\n", buffer2);
-	return (buffer2);
+	buffer1 = NULL;
+	return (line);
 }
 
-char	*ft_strchr_and_destroy(const char *s, char *keep, int c)
+char	*ft_strchr_and_destroy(const char *s, char **keep, int c)
 {
 	size_t	i_s;
 
@@ -62,13 +75,13 @@ char	*ft_strchr_and_destroy(const char *s, char *keep, int c)
 	{
 		if (s[i_s] == (char)c)
 		{
-			strlcpy(keep, s[i_s + 1], ft_strlen(s[i_s])); // Copie les elements de la chaine apres le /n dans une chaine tmp
-			ft_memset(s[i_s + 1], '/0', ft_strlen(s[i_s + 1])); // met a zero les elements de la chaine apres le /n
+			*keep = ft_substr(s, i_s + 1, ft_strlen(&s[i_s] + 1)); // Copie les elements de la chaine apres le /n dans la chaine keep
+			ft_memset((void *)&s[i_s + 1], '\0', ft_strlen(&s[i_s + 1])); // met a zero les elements de la chaine apres le /n
 			return ((char *)s); // retourne la chaine tronquer
 		}
 		i_s++;
 	}
-	return ((char) *s);
+	return ((char *)s);
 }
 
 char	*get_next_line(int fd)
@@ -79,16 +92,17 @@ char	*get_next_line(int fd)
 	return (tmp_buf);
 }
 
+/*
 #include <fcntl.h>
 #include <stdio.h>
 
 int	main(void)
 {
 	int	fd;
-	char	*buffer;
+	char	*line;
 
-	test = 20;
 	fd = open("test.txt", O_RDONLY);
-	buffer = get_next_line(fd);
+	line = get_next_line(fd);
 	return (0);
 }
+*/
