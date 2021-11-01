@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:05:22 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/29 17:55:28 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/01 10:35:47 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
  * */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*get_line(int fd)
 {
@@ -36,15 +35,15 @@ char	*get_line(int fd)
 	int	nbr_of_while;
 
 	nbr_of_while = 0;
-	buffer1 = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	buffer1 = malloc(sizeof(char) * (BUFFER_SIZE));
 	if (!buffer1)
 		return (0);
 	bytes_read = 1;
 	line_lenght = 0;
 	if (keep_the_rest)
 		line = ft_substr(keep_the_rest, 0, BUFFER_SIZE);
-	else
-		line = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	//else
+	//	line = malloc(sizeof(char) * (BUFFER_SIZE));
 	while (bytes_read != 0)
 	{
 		nbr_of_while++;
@@ -92,9 +91,8 @@ char	*get_next_line(int fd)
 	return (tmp_buf);
 }
 
-/*
+
 #include <fcntl.h>
-#include <stdio.h>
 
 int	main(void)
 {
@@ -102,7 +100,8 @@ int	main(void)
 	char	*line;
 
 	fd = open("test.txt", O_RDONLY);
+
 	line = get_next_line(fd);
-	return (0);
+return (0);
 }
-*/
+
