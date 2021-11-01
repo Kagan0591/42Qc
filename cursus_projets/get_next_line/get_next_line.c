@@ -42,8 +42,8 @@ char	*get_line(int fd)
 	line_lenght = 0;
 	if (keep_the_rest)
 		line = ft_substr(keep_the_rest, 0, BUFFER_SIZE);
-	//else
-	//	line = malloc(sizeof(char) * (BUFFER_SIZE));
+	if (!line) // Si line ne contient aucune valeur, utiliser keep_the_rest
+		line = strdup(buffer1);
 	while (bytes_read != 0)
 	{
 		nbr_of_while++;

@@ -31,18 +31,23 @@ char	*get_line(int fd, line)
 
 	buffer = malloc(sizeof(char *) * (BUFFER_SIZE));	// Alloue l espace au buffer selon le BUFFER_SIZE
 	if (remaining != '\0')								// Verifie si il y a un reste de l ancient buffer
-		line = ft_strjoin(line, remaining);				// Si il y a, il joindra la chaine remaining a la chaine line
+		line = ft_strjoin(line, remaining);			// Si il y a, il joindra la chaine remaining a la chaine line
+
 	read_output = 1;									// Initialise la variable read_output a 1, pusique 0 egale
 	while (read_output != 0)							// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
 		if (read_output == -1)							// Verifie si la varable read-output est egale a -1 (read retourne -1 quand il ya a erreur)
 			return (0);									// Si vrai, la fonction retourne 0
-		buffer =
+
 		if (!line)										// Verifie si la chaine line existe (Elle ne devrait pas si il sagit de la premiere iteration et/ou si remaining ne contenais rien)
+		{
 			line = malloc(1);							// si vrai, la chaine line ce voit allouer dynamiquement un espace en memoire de un octet
+			line[0] = '\0';
+		}
 		line = ft_strjoin(line, buffer);				// La chaine buffer est jointe a la chaine line pour y ajouter sont contenue a la suite de cette derniere
 		free(buffer);									// N ayant plus besoin du contenue de la chaine buffer, l espace memoire qui lui etait allouee est liberee
+		return (line)
 	}
 
 }
