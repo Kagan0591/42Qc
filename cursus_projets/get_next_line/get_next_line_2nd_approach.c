@@ -12,59 +12,107 @@
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
-{
-	char	*line;
-
-	get_line(fd, line);
-}
 /* get_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
  * dans un fichier puis les ecrires dans la variable char *buffer.
  * Ensuite, il joint le buffer a la chaine line. Puis, il s assurera de copier
  * dans la chaine remaining le reste du buffer */
-char	*get_line(int fd, line)
+
+char	*get_next_line(int fd)
 {
-	static char	*remaining;		// Ce qui restera du buffer apres le retour de ligne
+	char	*line;
+	static char	*remaining; // Ce qui restera du buffer apres le retour de ligne
+
+	if (remaining)												// Verifie si il y a un reste de l ancient buffer
+		line = ft_strdup(remaining);							// Si il y a, la chaine remaining sera copier vers une nouvelle chaine line
+	line = get_line(fd, remaining);
+	return (line);
+}
+
+
+char	*get_line(int fd, char	*remaining)
+{
 	char		*buffer;		// Le tempon ou est stocke les characteres provenant du fichier
 	char		*line;			// La chaine de charactere destine a contenire toute la ligne
 	int			read_output;	// Le nombre de characteres ecrit dans le buffer, retourne par la fonction read
 
-	buffer = malloc(sizeof(char *) * (BUFFER_SIZE));	// Alloue l espace au buffer selon le BUFFER_SIZE
-	if (remaining != '\0')								// Verifie si il y a un reste de l ancient buffer
-		line = ft_strjoin(line, remaining);			// Si il y a, il joindra la chaine remaining a la chaine line
-
-	read_output = 1;									// Initialise la variable read_output a 1, pusique 0 egale
-	while (read_output != 0)							// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE));					// Alloue l espace au buffer selon le BUFFER_SIZE
+	read_output = 1;												// Initialise la variable read_output a 1
+	while (read_output != 0 && !ft_strchr(line, '\n'))					// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
-		if (read_output == -1)							// Verifie si la varable read-output est egale a -1 (read retourne -1 quand il ya a erreur)
-			return (0);									// Si vrai, la fonction retourne 0
-
-		if (!line)										// Verifie si la chaine line existe (Elle ne devrait pas si il sagit de la premiere iteration et/ou si remaining ne contenais rien)
+		if (read_output == -1)										// Verifie si la variable read-output est egale a -1 (read retourne -1 quand il ya a erreur)
 		{
-			line = malloc(1);							// si vrai, la chaine line ce voit allouer dynamiquement un espace en memoire de un octet
-			line[0] = '\0';
+			free(buffer);
+			return (0);												// Si vrai, la fonction retourne 0
 		}
-		line = ft_strjoin(line, buffer);				// La chaine buffer est jointe a la chaine line pour y ajouter sont contenue a la suite de cette derniere
-		free(buffer);									// N ayant plus besoin du contenue de la chaine buffer, l espace memoire qui lui etait allouee est liberee
-		return (line)
-	}
+		line = make_line(buffer, )
 
+
+		if (!line)													// Verifie si la chaine line existe (Elle ne devrait pas si il sagit de la premiere iteration et/ou si remaining ne contenais rien)
+			line = ft_strdup(buffer);								// Si elle n existe pas, les valeurs de buffer y seront copiees
+		else
+		line = ft_strjoin(line, buffer);							// La chaine buffer est jointe a la chaine line pour y ajouter sont contenue a la suite de cette derniere
+		//buffer = ft_strchr_and_destroy(buffer, &remaining, '\n');	// Dans cette fonction, \n sera recherche dans la string, si il est trouve, tou ce qui se trouve a droite de celui-ci sera copier dans la variable remaining et ecraser par des zeros dans la chaine buffer. Ensuite elle retournera la chaine buffer.
+		free(buffer);												// N ayant plus besoin du contenue de la chaine buffer, l espace memoire qui lui etait allouee est liberee
+	}
+	line = ft_strjoin(line, ft_cropfront(buffer, 'n'));
+	remaining = ft_cropend(buffer, 'n');
+
+	return (line);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*make_line()
 {
-	while (*s)
-	{
-		if (*s == (char )c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char)c == '\0')
-		return ((char *)s);
-	return (0);
+
 }
 
+/* Si le buffer contient un /n */
+
+// malloc une nouvelle string qui acceuillera les char de la droite du \n
+char	*ft_cropend(char *s1, char c)
+{
+	char	*s2;
+	while (s1 != c)
+		s1++;
+	s2 = ft_strdup(s1 + 1);
+	free(s1);
+	return (s2);
+}
+
+// malloc une nouvelle string qui acceuillera les char de la gauche du \n l incluant
+char	*ft_cropfront(char *s1, char c)
+{
+	char	*s2;
+	size_t	count;
+
+	count = 0;
+	ft_cropend()
+	while (s1[count] != c)
+		count++;
+	ft_substr(s1, 0, count + 1);
+	free(s1);
+	return (s2);
+}
+
+char	*ft_strchr_and_destroy(const char *str, char **keep, int c)
+{
+	size_t	i_str;
+
+	i_str = 0;
+	while (str[i_str])
+	{
+		if (str[i_str] == (char)c)
+		{
+			*keep = ft_substr(str, i_str + 1, ft_strlen(&str[i_str] + 1)); // Copie les elements de la chaine apres le /n dans la chaine keep
+			printf("%s\n", *keep);
+			ft_memset((void *)&str[i_str + 1], '\0', ft_strlen(&str[i_str + 1])); // met a zero les elements de la chaine apres le /n
+			printf("%s\n", str);
+			return ((char *)str); // retourne la chaine tronquer
+		}
+		i_str++;
+	}
+	return ((char *)str);
+}
 
 /* get_next_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
  * dans un fichier puis les ecrires dans la variable char *buffer. */
@@ -73,5 +121,16 @@ char	*get_next_line(int fd)
 	char	*line;
 
 	line = get_line(fd);
+	return (line);
+}
 
+#include <fcntl.h>
+
+int	main(void)
+{
+	int	fd;
+
+	fd = open("test.txt", O_RDONLY);
+	get_next_line(fd);
+	return (0);
 }
