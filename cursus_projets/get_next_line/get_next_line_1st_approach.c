@@ -27,9 +27,12 @@ int	main(void)
 	int	fd;
 
 	fd = open(test.txt);
+	while()
+	{
+		read()
+	}
 
-	read ()
-	//get_next_line(10);
+		//get_next_line(10);
 	return (0);
 }
 
