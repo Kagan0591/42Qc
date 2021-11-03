@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <io.h>
 #include <stdio.h>
 
 /* get_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
@@ -96,13 +97,20 @@ int	main(void)
 	int	fd;
 	char	*display;
 	int i;
+	int j;
 
 	i = 0;
+	j = 0;
 	fd = open("test.txt", O_RDONLY);
 	while (i != 8)
 	{
 		display = get_next_line(fd);
-		printf("MAIN %s\n", display);
+		while (display[j] != '\0')
+		{
+			write(1, &display[j], 1);
+			j++;
+		}
+		j = 0;
 		i++;
 	}
 	return (0);
