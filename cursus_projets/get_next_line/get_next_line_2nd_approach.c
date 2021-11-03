@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 }
 
 
-char	*get_line(int fd, char	*remaining)
+char	*get_line(int fd, char *remaining)
 {
 	char		*buffer;		// Le tempon ou est stocke les characteres provenant du fichier
 	char		*line;			// La chaine de charactere destine a contenire toute la ligne
@@ -48,7 +48,7 @@ char	*get_line(int fd, char	*remaining)
 		}
 		buffer = ft_cropfront(buffer, '\n');
 		if (!line)													// Verifie si la chaine line existe (Elle ne devrait pas si il sagit de la premiere iteration et/ou si remaining ne contenais rien)
-			line = ft_strdup(buffer);								// Si elle n existe pas, les valeurs de buffer y seront copiees
+			line = ft_strldup(buffer, ft_strlen(buffer));								// Si elle n existe pas, les valeurs de buffer y seront copiees
 		else
 		line = ft_strjoin(line, buffer);							// La chaine buffer est jointe a la chaine line pour y ajouter sont contenue a la suite de cette derniere
 		//buffer = ft_strchr_and_destroy(buffer, &remaining, '\n');	// Dans cette fonction, \n sera recherche dans la string, si il est trouve, tou ce qui se trouve a droite de celui-ci sera copier dans la variable remaining et ecraser par des zeros dans la chaine buffer. Ensuite elle retournera la chaine buffer.
@@ -58,21 +58,15 @@ char	*get_line(int fd, char	*remaining)
 	return (line);
 }
 
-char	*make_line()
-{
-	ft_cropend
-
-}
-
 /* Si le buffer contient un /n */
 
 // malloc une nouvelle string qui acceuillera les char de la droite du \n
 char	*ft_cropend(char *s1, char c)
 {
 	char	*s2;
-	while (s1 != c)
+	while (*s1 != c)
 		s1++;
-	s2 = ft_strdup(s1 + 1);
+	s2 = ft_strldup(s1 + 1, ft_strlen(s1 + 1));
 	return (s2);
 }
 
@@ -83,9 +77,9 @@ char	*ft_cropfront(char *s1, char c)
 	size_t	count;
 
 	count = 0;
-	while (s1[count] != \0 && s1[count] != c)
+	while (s1[count] != '\0' && s1[count] != c)
 		count++;
-	s2 = ft_strldup(s1, count + 1)
+	s2 = ft_strldup(s1, count + 1);
 	return (s2);
 }
 
@@ -104,12 +98,20 @@ char	*ft_strldup(const char *s1, size_t len)
 	return (s2);
 }
 
+#include <fcntl.h>
+int	main(void)
+{
+	int	fd;
+
+	fd = open("test.txt", O_RDONLY);
+	get_next_line(fd);
+	return (0);
+}
 
 
 
 
-
-
+/*
 char	*ft_strchr_and_destroy(const char *str, char **keep, int c)
 {
 	size_t	i_str;
@@ -129,9 +131,10 @@ char	*ft_strchr_and_destroy(const char *str, char **keep, int c)
 	}
 	return ((char *)str);
 }
-
+*/
 /* get_next_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
  * dans un fichier puis les ecrires dans la variable char *buffer. */
+/*
 char	*get_next_line(int fd)
 {
 	char	*line;
@@ -150,3 +153,4 @@ int	main(void)
 	get_next_line(fd);
 	return (0);
 }
+*/
