@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/29 17:51:03 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/03 14:19:27 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (!s)
+		return (0);
 	while (*s)
 	{
 		if (*s == (char )c)
