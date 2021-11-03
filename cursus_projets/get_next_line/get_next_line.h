@@ -19,9 +19,8 @@
 #include <stdio.h>
 
 char	*get_next_line(int fd);
-char	*get_line(int fd, char *remaining);
+char	*get_line(int fd);
 char	*ft_cropfront(char *s1, char c);
-char	*ft_cropend(char *s1, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

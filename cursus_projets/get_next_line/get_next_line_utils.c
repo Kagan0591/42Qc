@@ -30,6 +30,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		if (!s3)
 			return (NULL);
 		ft_strlcpy(s3, s1, (s1_lenght + 1));
+		free((void *) s1);
 		ft_strlcat(s3, s2, ((s1_lenght + s2_lenght) + 1));
 		return (s3);
 	}
@@ -105,10 +106,8 @@ char	*ft_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (*s == (char )c)
-			return ((char *)s);
+			return ((char *)s + 1);
 		s++;
 	}
-	if ((char)c == '\0')
-		return ((char *)s);
 	return (0);
 }

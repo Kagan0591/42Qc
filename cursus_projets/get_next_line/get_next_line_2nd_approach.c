@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
 /* get_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
  * dans un fichier puis les ecrires dans la variable char *buffer.
  * Ensuite, il joint le buffer a la chaine line. Puis, il s assurera de copier
@@ -23,14 +21,14 @@ char	*get_next_line(int fd)
 	static char	*remaining; // Ce qui restera du buffer apres le retour de ligne
 
 	if (remaining)												// Verifie si il y a un reste de l ancient buffer
-		line = ft_strjoin(remaining, get_line(fd, remaining));
+		line = ft_strjoin(remaining, get_line(fd, &remaining));
 	else							// Si il y a, la chaine remaining sera copier vers une nouvelle chaine line
-		line = get_line(fd, remaining);
+		line = get_line(fd, &remaining);
 	return (line);
 }
 
 
-char	*get_line(int fd, char *remaining)
+char	*get_line(int fd, char **remaining)
 {
 	char		*buffer;		// Le tempon ou est stocke les characteres provenant du fichier
 	char		*line;			// La chaine de charactere destine a contenire toute la ligne
@@ -53,7 +51,7 @@ char	*get_line(int fd, char *remaining)
 		line = ft_strjoin(line, buffer);							// La chaine buffer est jointe a la chaine line pour y ajouter sont contenue a la suite de cette derniere
 		//buffer = ft_strchr_and_destroy(buffer, &remaining, '\n');	// Dans cette fonction, \n sera recherche dans la string, si il est trouve, tou ce qui se trouve a droite de celui-ci sera copier dans la variable remaining et ecraser par des zeros dans la chaine buffer. Ensuite elle retournera la chaine buffer.
 	}
-	remaining = ft_cropend(buffer, 'n');
+	*remaining = ft_cropend(buffer, 'n');
 	free(buffer);
 	return (line);
 }
