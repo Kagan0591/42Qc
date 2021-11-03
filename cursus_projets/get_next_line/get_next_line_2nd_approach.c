@@ -23,8 +23,9 @@ char	*get_next_line(int fd)
 	static char	*remaining; // Ce qui restera du buffer apres le retour de ligne
 
 	if (remaining)												// Verifie si il y a un reste de l ancient buffer
-		line = ft_strdup(remaining);							// Si il y a, la chaine remaining sera copier vers une nouvelle chaine line
-	line = get_line(fd, remaining);
+		line = ft_strjoin(remaining, get_line(fd, remaining));
+	else							// Si il y a, la chaine remaining sera copier vers une nouvelle chaine line
+		line = get_line(fd, remaining);
 	return (line);
 }
 
@@ -37,7 +38,7 @@ char	*get_line(int fd, char	*remaining)
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE));					// Alloue l espace au buffer selon le BUFFER_SIZE
 	read_output = 1;												// Initialise la variable read_output a 1
-	while (read_output != 0 && !ft_strchr(line, '\n'))					// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
+	while (read_output != 0 && !ft_strchr(line, '\n'))				// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
 		if (read_output == -1)										// Verifie si la variable read-output est egale a -1 (read retourne -1 quand il ya a erreur)
@@ -45,24 +46,21 @@ char	*get_line(int fd, char	*remaining)
 			free(buffer);
 			return (0);												// Si vrai, la fonction retourne 0
 		}
-		line = make_line(buffer, )
-
-
+		buffer = ft_cropfront(buffer, '\n');
 		if (!line)													// Verifie si la chaine line existe (Elle ne devrait pas si il sagit de la premiere iteration et/ou si remaining ne contenais rien)
 			line = ft_strdup(buffer);								// Si elle n existe pas, les valeurs de buffer y seront copiees
 		else
 		line = ft_strjoin(line, buffer);							// La chaine buffer est jointe a la chaine line pour y ajouter sont contenue a la suite de cette derniere
 		//buffer = ft_strchr_and_destroy(buffer, &remaining, '\n');	// Dans cette fonction, \n sera recherche dans la string, si il est trouve, tou ce qui se trouve a droite de celui-ci sera copier dans la variable remaining et ecraser par des zeros dans la chaine buffer. Ensuite elle retournera la chaine buffer.
-		free(buffer);												// N ayant plus besoin du contenue de la chaine buffer, l espace memoire qui lui etait allouee est liberee
 	}
-	line = ft_strjoin(line, ft_cropfront(buffer, 'n'));
 	remaining = ft_cropend(buffer, 'n');
-
+	free(buffer);
 	return (line);
 }
 
 char	*make_line()
 {
+	ft_cropend
 
 }
 
@@ -75,7 +73,6 @@ char	*ft_cropend(char *s1, char c)
 	while (s1 != c)
 		s1++;
 	s2 = ft_strdup(s1 + 1);
-	free(s1);
 	return (s2);
 }
 
@@ -86,13 +83,32 @@ char	*ft_cropfront(char *s1, char c)
 	size_t	count;
 
 	count = 0;
-	ft_cropend()
-	while (s1[count] != c)
+	while (s1[count] != \0 && s1[count] != c)
 		count++;
-	ft_substr(s1, 0, count + 1);
-	free(s1);
+	s2 = ft_strldup(s1, count + 1)
 	return (s2);
 }
+
+char	*ft_strldup(const char *s1, size_t len)
+{
+	char	*s2;
+	size_t	i_s1;
+
+	i_s1 = ft_strlen(s1) + 1;
+	if (i_s1 > len)
+		i_s1 = len;
+	s2 = malloc(sizeof(*s2) * i_s1);
+	if (!s2)
+		return (0);
+	ft_strlcpy(s2, s1, i_s1);
+	return (s2);
+}
+
+
+
+
+
+
 
 char	*ft_strchr_and_destroy(const char *str, char **keep, int c)
 {
