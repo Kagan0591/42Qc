@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:55:19 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/04 12:04:15 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/04 15:17:52 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 char	*get_next_line(int fd);
-char	*get_line(int fd);
+char	*get_line(int fd, char **remaining);
 void	ft_cropfront(char **s1, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
@@ -27,5 +27,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strldup(const char *s1, size_t len);
 char	*ft_strchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 14:03:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/04 12:04:16 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/04 16:36:26 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ char	*get_next_line(int fd)
 	static char	*remaining;
 
 	if (remaining)
-		line = ft_strjoin(remaining, get_line(fd));
+		line = ft_strjoin(remaining, get_line(fd, &remaining));
 	else
-		line = get_line(fd);
+		line = get_line(fd, &remaining);
 	if (ft_strchr(line, '\n') != 0)
 		remaining = ft_strldup(ft_strchr(line, '\n'), ft_strlen(ft_strchr(line, '\n')));
-	ft_cropfront(&line, '\n');
+	//printf("Remaining = %s\n", remaining);
+	//printf("line value = %s\n", line);
+	//ft_cropfront(&line, '\n');
+	//printf("remaining value = %s\n", remaining);
 	return (line);
 }
 
-char	*get_line(int fd)
+char	*get_line(int fd, char **remaining_ptr)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	char	*line;
@@ -45,8 +48,12 @@ char	*get_line(int fd)
 	while (!ft_strchr(line, '\n'))
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
+		printf("%d\n", read_output);
 		if (read_output <= 0)
+		{
+			*remaining_ptr = ft_substr(*remaining_ptr, BUFFER_SIZE, ft_strlen(*remaining_ptr) - BUFFER_SIZE);
 			return (0);
+		}
 		buffer[read_output] = '\0';
 		if (!line)
 			line = ft_strldup(buffer, ft_strlen(buffer));
@@ -58,12 +65,14 @@ char	*get_line(int fd)
 
 void	ft_cropfront(char **s1, char c)
 {
+	printf("test");
 	char	*s2;
 	size_t	count;
-
+	//printf("test");
 	count = 0;
 	while (*s1[count] != '\0' && *s1[count] != c)
 		count++;
+	printf("count = %zu\n", count);
 	s2 = *s1;
 	*s1 = ft_strldup(s2, count + 1);
 	free(s2);
@@ -95,7 +104,7 @@ int	main(void)
 	i = 0;
 	j = 0;
 	fd = open("test.txt", O_RDONLY);
-	while (i != 8)
+	while (i != 4)
 	{
 		display = get_next_line(fd);
 		while (display[j] != '\0')
@@ -105,6 +114,8 @@ int	main(void)
 		}
 		j = 0;
 		i++;
+		free(display);
 	}
+	close(fd);
 	return (0);
 }

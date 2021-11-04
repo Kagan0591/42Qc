@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/03 14:19:27 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/04 15:17:53 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,21 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	return (0);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*dst;
+
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > ft_strlen(s))
+		len = (ft_strlen(s) - start);
+	dst = (char *) malloc(sizeof(char) * (len + 1));
+	if (!dst)
+		return (0);
+	ft_strlcpy(dst, ((char *)s + start), (len + 1));
+	return (dst);
 }
