@@ -6,13 +6,13 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 14:03:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/03 16:30:34 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/04 12:04:16 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <io.h>
 #include <stdio.h>
+#include <unistd.h>
 
 /* get_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
  * dans un fichier puis les ecrires dans la variable char *buffer.
@@ -31,49 +31,47 @@ char	*get_next_line(int fd)
 	if (ft_strchr(line, '\n') != 0)
 		remaining = ft_strldup(ft_strchr(line, '\n'), ft_strlen(ft_strchr(line, '\n')));
 	//printf("Remaining value %s\n", remaining);
-	line = ft_cropfront(line, '\n');
+	ft_cropfront(&line, '\n');
 	//printf("The string returned by gnl %s\n", line);
 	return (line);
 }
 
 char	*get_line(int fd)
 {
-	char	*buffer;		// Le tempon ou est stocke les characteres provenant du fichier
+	char	buffer[BUFFER_SIZE + 1];		// Le tempon ou est stocke les characteres provenant du fichier
 	char	*line;
 	int		read_output;	// Le nombre de characteres ecrit dans le buffer, retourne par la fonction read
 
 	//buffer = malloc(sizeof(char) * (BUFFER_SIZE));					// Alloue l espace au buffer selon le BUFFER_SIZE
 	read_output = 1;
 	line = NULL;												// Initialise la variable read_output a 1
-	while (read_output != 0 && !ft_strchr(line, '\n'))				// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
+	while (!ft_strchr(line, '\n'))				// Tant que la variable read-output n egale pas 0 (read retourne 0 quand il atteint END_OF_FILE)
 	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE));
+		//buffer = malloc(sizeof(char) * (BUFFER_SIZE));
 		read_output = read(fd, buffer, BUFFER_SIZE);
-		if (read_output == -1)										// Verifie si la variable read-output est egale a -1 (read retourne -1 quand il ya a erreur)
-		{
-			free(buffer);
-			return (0);												// Si vrai, la fonction retourne 0
-		}
+		if (read_output <= 0)										// Verifie si la variable read-output est egale a -1 (read retourne -1 quand il ya a erreur)
+			return (0);											// Si vrai, la fonction retourne 0
+		buffer[read_output] = '\0';
 		if (!line)
 			line = ft_strldup(buffer, ft_strlen(buffer));
 		else
 			line = ft_strjoin(line, buffer); // Les donnes pointe par line d origine est concatene avec celle pointe par buffer dans une nouvelle chaine et l ancienne chaine line est free. Puis line devient le pointeur de la nouvelle chaine
-		free(buffer);
 	}
 	return (line);
 }
 
 // malloc une nouvelle string qui acceuillera les char de la gauche du \n l incluant
-char	*ft_cropfront(char *s1, char c)
+void	ft_cropfront(char **s1, char c)
 {
 	char	*s2;
 	size_t	count;
 
 	count = 0;
-	while (s1[count] != '\0' && s1[count] != c)
+	while (*s1[count] != '\0' && *s1[count] != c)
 		count++;
-	s2 = ft_strldup(s1, count + 1);
-	return (s2);
+	s2 = *s1;
+	*s1 = ft_strldup(s2, count + 1);
+	free(s2);
 }
 
 char	*ft_strldup(const char *s1, size_t len)
