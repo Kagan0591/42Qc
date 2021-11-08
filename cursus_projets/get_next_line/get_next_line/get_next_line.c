@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:23:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/05 15:40:58 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:56:39 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*get_next_line(fd)
 	int		read_output;
 	int		count;
 
+	line = NULL; // Pour eviter les junks values
 	count = 0;
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (0);
@@ -31,22 +32,36 @@ char	*get_next_line(fd)
 	while (!ft_strchr(buffer, '\n')) // Copie dans le buffer les chars jusqu a ce qu il trouve le /n
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
+		printf("Buf test = %s\n", buffer);
 		if (read_output <= 0) // Si il n y a plus de chars dans le fichier sort de boucle
 		{
 			count++;
 			break;
 		}
 		line = ft_strjoin(line, buffer);
+		printf("line test2 = %s\n", line);
 	}
+	crop_line(&line);
 	printf("count = %d\n", count);
 	return (line);
 }
-/*
-void	*get_the_rest(char **line)
-{
 
+/* Verifier si j ai quelque chose dans la static remaining provenant d un ancien appel de gnl.
+ * Si il y a joindre line avec remaining j uste qu au premier \n puis faire egaler le restant a la static remaining.
+ * 1. Copier la doite du \n le restant du buffer dans une static remaining et ce sans malloc.
+ * 2. copier la gauche du \n la ligne vers la variable line incluant le \n.
+ */
+
+void	crop_line(char **line)
+{
+	static char	*remaining;
+
+	if(remaining)
+	{
+
+	}
 }
-*/
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s3;
@@ -67,8 +82,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strlcpy(s3, s1, (s1_lenght + 1));
 		ft_strlcat(s3, s2, ((s1_lenght + s2_lenght) + 1));
 		return (s3);
-		free((void*)s1);
-		free((void*)s2);
+		free((void *)s1);
+		free((void *)s2);
 	}
 	return (NULL);
 }
@@ -82,7 +97,7 @@ int	main(void)
 	fd = open("test.txt", O_RDONLY);
 	while (i != 3)
 	{
-		printf("%s\n", get_next_line(fd));
+		printf("Final returned value = %s\n", get_next_line(fd));
 		i++;
 	}
 	return (0);
