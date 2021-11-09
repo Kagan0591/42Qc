@@ -17,49 +17,57 @@
 
 char	*get_next_line(fd)
 {
+	char static	remaining;
 	char	*line;
 	char	*buffer;
 	int		read_output;
-	int		count;
 
 	line = NULL; // Pour eviter les junks values
-	count = 0;
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (0);
 	read_output = 1;
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	buffer[BUFFER_SIZE + 1] = '\0';
-	while (!ft_strchr(buffer, '\n')) // Copie dans le buffer les chars jusqu a ce qu il trouve le /n
+	while (!ft_strchr(buffer, '\n' && read_output != 0)) // Copie dans le buffer les chars jusqu a ce qu il trouve le /n
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
-		printf("Buf test = %s\n", buffer);
-		if (read_output <= 0) // Si il n y a plus de chars dans le fichier sort de boucle
+		if (read_output == -1) // Si il n y a plus de chars dans le fichier sort de boucle
 		{
-			count++;
-			break;
+			free(buffer);
+			return (0);
 		}
-		line = ft_strjoin(line, buffer);
-		printf("line test2 = %s\n", line);
+		remaining = ft_strjoin(remaining, buffer);
 	}
-	crop_line(&line);
-	printf("count = %d\n", count);
+	free(buffer);
+	line = crop_front(remaining);
+	remaining = crop_end(remaining);
 	return (line);
 }
 
 /* Verifier si j ai quelque chose dans la static remaining provenant d un ancien appel de gnl.
  * Si il y a joindre line avec remaining j uste qu au premier \n puis faire egaler le restant a la static remaining.
- * 1. Copier la doite du \n le restant du buffer dans une static remaining et ce sans malloc.
+ * 1. Copier la droite du \n le restant du buffer dans une static remaining et ce sans malloc.
  * 2. copier la gauche du \n la ligne vers la variable line incluant le \n.
  */
 
-void	crop_line(char **line)
+char	*crop_front(char *remaining)
 {
-	static char	*remaining;
+	int		lenght;
+	int		i;
+	char	*line;
 
-	if(remaining)
+	lenght = 0;
+	i = 0;
+	while (remaining[lenght] && remaining[lenght] != '\n')
+		lenght++;
+	line = malloc(sizeof(char) * (lenght + 1));
+	while (i <= lenght)
 	{
-
+		line[i] = remaining[i];
+		i++;
 	}
+	line[i] = '\0';
+	return (line);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
