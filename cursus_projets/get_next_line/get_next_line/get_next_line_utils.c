@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/08 14:48:27 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/09 13:24:14 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@ size_t	ft_strlen(const char *s)
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
+	size_t	i;
 	size_t	srclenght;
+
+	i = 0;
 	srclenght = ft_strlen(src);
 	if (dstsize == 0)
 		return (srclenght);
-	while (*src && dstsize-- > 1)
+	while (src[i] != '\0' && dstsize-- > 1)
 	{
-		*dst = *src;
-		dst++;
-		src++;
+		dst[i] = src[i];
+		i++;
 	}
-	*dst = '\0';
+	dst[i] = '\0';
 	return (srclenght);
 }
 
@@ -74,14 +76,4 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	return (0);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	char	*str;
-
-	str = b;
-	while (len--)
-		*str++ = (unsigned char)c;
-	return (b);
 }
