@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   gnl old1 before last gitpush.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:23:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/09 16:53:40 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:11:44 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,19 @@ char	*get_line(fd)
 	char		*line;
 	char		*buffer;
 	int			read_output;
-	static int	count;
+	static int	count = 0;
 
 	read_output = 1;
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	buffer[0] = '\0';
+	if (!buffer)
+		return (0);
+	buffer[BUFFER_SIZE + 1] = '\0';
 	count++;
 	printf("count = %d\n", count);
-	printf("BUFFER value = %s\n", buffer);
 	//printf("remaining at start = %s\n", remaining);
 	while (!ft_strchr(buffer, '\n') && read_output != 0)
 	{
-		if (!buffer)
-		{
-			buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-			if (!buffer)
-				return (0);
-		}
 		read_output = read(fd, buffer, BUFFER_SIZE);
-		buffer[read_output] = '\0';
 		printf("buffer_out = %d\n", read_output);
 		if (read_output == -1)
 		{
@@ -47,10 +41,8 @@ char	*get_line(fd)
 		}
 		remaining = ft_strjoin(remaining, buffer);
 		printf("remaining after joint = %s\n", remaining);
-		//free(buffer);
 	}
 	free(buffer);
-	buffer = NULL;
 	line = crop_front(remaining);
 	remaining = crop_end(remaining);
 	printf("GET_LINE AFTER CROP_FRONT && CROP_END,, line = %s\n", line);
@@ -109,8 +101,6 @@ char	*crop_end(char *src)
 	length = ft_strlen(&src[i + 1]);
 	dst = malloc(sizeof(char) * (length + 1));
 	ft_strlcpy(dst, &src[i + 1], length + 1);
-	free(src);
-	src = NULL;
 	return (dst);
 }
 
@@ -158,7 +148,7 @@ int	main(void)
 
 	i = 0;
 	fd = open("test.txt", O_RDONLY);
-	while (i != 4)
+	while (i != 8)
 	{
 		printf("Final returned value = %s\n", get_next_line(fd));
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 14:03:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/04 16:36:26 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/05 11:14:23 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,27 @@ char	*get_next_line(int fd)
 		remaining = ft_strldup(ft_strchr(line, '\n'), ft_strlen(ft_strchr(line, '\n')));
 	//printf("Remaining = %s\n", remaining);
 	//printf("line value = %s\n", line);
-	//ft_cropfront(&line, '\n');
+	ft_cropfront(&line, '\n');
 	//printf("remaining value = %s\n", remaining);
 	return (line);
 }
 
-char	*get_line(int fd, char **remaining_ptr)
+void	ft_cropfront(char **s1, char c)
+{
+	//printf("test");
+	char	*s2;
+	size_t	count;
+	//printf("test");
+	count = 0;
+	while (*s1[count] != '\0' && *s1[count] != c)
+		count++;
+	//printf("count = %zu\n", count);
+	s2 = ft_strldup(*s1, count + 1);
+	free(*s1);
+	*s1 = s2;
+}
+
+char	*get_line(int fd, char **remaining)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	char	*line;
@@ -48,10 +63,10 @@ char	*get_line(int fd, char **remaining_ptr)
 	while (!ft_strchr(line, '\n'))
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
-		printf("%d\n", read_output);
+		//printf("%d\n", read_output);
 		if (read_output <= 0)
 		{
-			*remaining_ptr = ft_substr(*remaining_ptr, BUFFER_SIZE, ft_strlen(*remaining_ptr) - BUFFER_SIZE);
+			*remaining = ft_substr(*remaining, count_char(*remaining, '\n'), ft_strlen(*remaining) - count_char(*remaining, '\n'));
 			return (0);
 		}
 		buffer[read_output] = '\0';
@@ -63,19 +78,24 @@ char	*get_line(int fd, char **remaining_ptr)
 	return (line);
 }
 
-void	ft_cropfront(char **s1, char c)
+size_t	count_char(const char *s, const char c)
 {
-	printf("test");
-	char	*s2;
-	size_t	count;
-	//printf("test");
-	count = 0;
-	while (*s1[count] != '\0' && *s1[count] != c)
-		count++;
-	printf("count = %zu\n", count);
-	s2 = *s1;
-	*s1 = ft_strldup(s2, count + 1);
-	free(s2);
+	size_t	count_char;
+	size_t	i_s;
+
+	count_char = 0;
+	i_s = 0;
+	while (s[i_s] != '\0')
+	{
+		if ((char)s[i_s] == c)
+			return (count_char + 1);
+		while ((char)s[i_s] != c && s[i_s] != '\0')
+		{
+			count_char++;
+			i_s++;
+		}
+	}
+	return (count_char);
 }
 
 char	*ft_strldup(const char *s1, size_t len)
