@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/09 13:24:14 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:08:27 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,20 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	}
 	dst[i_dest] = '\0';
 	return (destlenght + srclenght);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*s2;
+	size_t	i_s1;
+
+	i_s1 = ft_strlen(s1) + 1;
+	s2 = malloc(sizeof(*s2) * i_s1);
+	if (!s2)
+		return (0);
+	ft_strlcpy(s2, s1, i_s1);
+	free((void*)s1);
+	return (s2);
 }
 
 char	*ft_strchr(const char *s, int c)

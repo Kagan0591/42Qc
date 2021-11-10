@@ -6,66 +6,76 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:23:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/09 16:53:40 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:37:53 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-#include <fcntl.h>
-#include <limits.h>
-char	*get_line(fd)
+
+int	main(void)
+{
+	int	fd;
+	char	*result;
+
+	fd = open("test.txt", O_RDONLY);
+	result = get_next_line(fd);
+	printf("Final returned value = '%s'\n", result);
+	printf("'%s'\n", NULL);
+	// while (result != NULL)
+	// {
+	//	printf("Final returned value = %s\n", result);
+	// 	result = get_next_line(fd);
+	// }
+	return (0);
+}
+
+char	*get_line(int fd)
 {
 	char static	*remaining;
 	char		*line;
 	char		*buffer;
 	int			read_output;
-	static int	count;
 
 	read_output = 1;
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	buffer[0] = '\0';
-	count++;
-	printf("count = %d\n", count);
-	printf("BUFFER value = %s\n", buffer);
-	//printf("remaining at start = %s\n", remaining);
-	while (!ft_strchr(buffer, '\n') && read_output != 0)
+	if (!buffer)
 	{
-		if (!buffer)
-		{
-			buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-			if (!buffer)
-				return (0);
-		}
+		free(buffer);
+		return (NULL);
+	}
+	//buffer[BUFFER_SIZE] = '\0';
+	while (!ft_strchr(remaining, '\n') && read_output != 0)
+	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
 		buffer[read_output] = '\0';
-		printf("buffer_out = %d\n", read_output);
 		if (read_output == -1)
 		{
 			free(buffer);
-			return (0);
+			return (NULL);
 		}
-		remaining = ft_strjoin(remaining, buffer);
-		printf("remaining after joint = %s\n", remaining);
-		//free(buffer);
+		printf("read_output = %d\n", read_output);
+		remaining = ft_memjoin(remaining, buffer);
 	}
 	free(buffer);
 	buffer = NULL;
 	line = crop_front(remaining);
 	remaining = crop_end(remaining);
-	printf("GET_LINE AFTER CROP_FRONT && CROP_END,, line = %s\n", line);
-	printf("GET_LINE AFTER CROP_FRONT && CROP_END,, remaining = %s\n", remaining);
-
 	return (line);
 }
 
-char	*get_next_line(fd)
+char	*get_next_line(int fd)
 {
 	char	*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
-		return (0);
+		return (NULL);
 	line = get_line(fd);
+	if (!line)
+	{
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
 
@@ -75,93 +85,96 @@ char	*get_next_line(fd)
  * 2. copier la gauche du \n la ligne vers la variable line incluant le \n.
  */
 
-char	*crop_front(char *remaining)
+char	*crop_front(char *src)
 {
 	int		lenght;
 	int		i;
-	char	*line;
-	printf(" CROP_FRONT remaining = %s\n", remaining);
+	char	*dst;
+	//printf(" CROP_FRONT remaining = %s\n", remaining);
 	lenght = 0;
 	i = 0;
-	while (remaining[lenght] && remaining[lenght] != '\n')
+	while (src[lenght] && src[lenght] != '\n')
 		lenght++;
-	line = malloc(sizeof(char) * (lenght + 1));
+	dst = malloc(sizeof(char) * (lenght + 1));
 	while (i <= lenght)
 	{
-		line[i] = remaining[i];
+		dst[i] = src[i];
 		i++;
 	}
-	printf(" CROP_FRONT line = %s\n", line);
-	line[i] = '\0';
-	return (line);
+	//printf(" CROP_FRONT line = %s\n", line);
+	dst[i] = '\0';
+	return (dst);
 }
 
 char	*crop_end(char *src)
 {
-	char	*dst;
-	size_t	length;
+	//char	*dst;
 	size_t	i;
 
 	i = 0;
-	while (src[i] && src[i] != '\n')
-		i++;
-	printf("CROP_END value of i = %zu\n", i);
-	length = ft_strlen(&src[i + 1]);
-	dst = malloc(sizeof(char) * (length + 1));
-	ft_strlcpy(dst, &src[i + 1], length + 1);
-	free(src);
-	src = NULL;
-	return (dst);
+	if (src)
+	{
+		while (src[i] && src[i] != '\n')
+			i++;
+		if (src[i] == '\n')
+			return (ft_strdup(&src[i] + 1));
+		// if (src[i] == '\n')
+		// {
+		// 	length = ft_strlen(&src[i + 1]);
+		// 	dst = malloc(sizeof(char) * (length + 1));
+		// 	if (!dst)
+		// 		return (NULL);
+		// 	ft_strlcpy(dst, &src[i + 1], length + 1);
+		// }
+		else
+			return (ft_strdup(src));
+	}
+		// else
+		// {
+		// 	length = ft_strlen(src);
+		// 	dst = malloc(sizeof(char) * (length + 1));
+		// 	if (!dst)
+		// 		return (NULL);
+		// 	ft_strlcpy (dst, src, (length + 1));
+		// }
+		// free(src);
+		// src = NULL;
+	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_memjoin(char const *s1, char const *s2)
 {
 	char	*s3;
 	size_t	s1_length;
 	size_t	s2_length;
-
-	if (!s1)
-	{
-		s2_length = ft_strlen(s2);
-		s3 = malloc(sizeof(char) * (s2_length + 1));
-		//printf("STRJOIN_IF!S1,, value of s2 = %s\n", s2);
-		//printf("STRJOIN_IF!S1,, %zu\n", s2_length);
-		ft_strlcpy(s3, s2, (s2_length + 1));
-		//printf("STRJOIN_IF!S1,, value of s3 = %s\n", s3);
-		return (s3);
-	}
-	if (!s2)
-	{
-		s1_length = ft_strlen(s2);
-		s3 = malloc(sizeof(char) * (s1_length + 1));
-		ft_strlcpy(s3, s1, s1_length);
-		return (s3);
-	}
-	if (s1 || s2)
-	{
-		s1_length = ft_strlen(s1);
-		s2_length = ft_strlen(s2);
-		s3 = malloc((s1_length + s2_length) + 1);
-		if (!s3)
-			return (NULL);
-		ft_strlcpy(s3, s1, (s1_length + 1));
-		ft_strlcat(s3, s2, ((s1_length + s2_length) + 1));
-		return (s3);
-	}
-	return (NULL);
+	printf("test");
+	s1_length = ft_strlen(s1);
+	s2_length = ft_strlen(s2);
+	printf("s1_length = %zu\n", s1_length);
+		if (!s1 && s2)
+			return (ft_strdup(s2));
+		else if (!s2 && s1)
+			return (ft_strdup(s1));
+		else if (s1 && s2)
+		{
+			s3 = malloc((s1_length + s2_length) + 1);
+			if (!s3)
+				return (NULL);
+			ft_strlcpy(s3, s1, (s1_length + 1));
+			ft_strlcat(s3, s2, ((s1_length + s2_length) + 1));
+			free((void*)s1);
+			return (s3);
+		}
+		return (NULL);
 }
 
-int	main(void)
+/*
+void	memdel(void *mem)
 {
-	int	fd;
-	int	i;
-
-	i = 0;
-	fd = open("test.txt", O_RDONLY);
-	while (i != 4)
+	if (mem != NULL)
 	{
-		printf("Final returned value = %s\n", get_next_line(fd));
-		i++;
+		free(mem);
+		mem = NULL;
 	}
-	return (0);
 }
+*/
