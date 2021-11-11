@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 12:55:19 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/11 09:45:41 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/11/11 10:54:05 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/11/11 12:23:16 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 #include <limits.h>
 
 char	*get_next_line(int fd);
-char	*get_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
+int		get_line(int fd, char **remaining_ptr);
 char	*ft_memjoin(char const *s1, char const *s2);
 char	*crop_end(char *src);
 char	*crop_front(char *remaining);

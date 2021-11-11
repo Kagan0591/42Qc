@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 09:09:58 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/11 10:40:32 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/11/11 10:54:17 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/11/11 18:38:23 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		i_src++;
 	}
 	dst[i_dest] = '\0';
+	printf("STRLCAT: src = %s\n", src);
+	printf("STRLCAT: dst = %s\n", dst);
 	return (destlenght + srclenght);
 }
 

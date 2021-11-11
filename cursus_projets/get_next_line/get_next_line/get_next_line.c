@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:23:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/10 16:37:53 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/11 10:47:55 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*get_line(int fd)
 		free(buffer);
 		return (NULL);
 	}
-	//buffer[BUFFER_SIZE] = '\0';
 	while (!ft_strchr(remaining, '\n') && read_output != 0)
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
@@ -54,8 +53,13 @@ char	*get_line(int fd)
 			free(buffer);
 			return (NULL);
 		}
-		printf("read_output = %d\n", read_output);
+		printf("GET_LINE: buffer before memjoin = '%s'\n", buffer);
+		printf("GET_LINE: remaining before memjoin = '%s'\n", remaining);
+		printf("GET_LINE: read_output = %d\n", read_output);
 		remaining = ft_memjoin(remaining, buffer);
+		printf("GET_LINE: remaining after memjoin = '%s'\n", remaining);
+		printf("GET_LINE: buffer after memjoin = '%s'\n", buffer);
+
 	}
 	free(buffer);
 	buffer = NULL;
@@ -112,7 +116,7 @@ char	*crop_end(char *src)
 	size_t	i;
 
 	i = 0;
-	if (src)
+	if (*src != '\0')
 	{
 		while (src[i] && src[i] != '\n')
 			i++;
@@ -125,7 +129,6 @@ char	*crop_end(char *src)
 		// 	if (!dst)
 		// 		return (NULL);
 		// 	ft_strlcpy(dst, &src[i + 1], length + 1);
-		// }
 		else
 			return (ft_strdup(src));
 	}
@@ -139,6 +142,7 @@ char	*crop_end(char *src)
 		// }
 		// free(src);
 		// src = NULL;
+	free((void*)src);
 	return (NULL);
 }
 
@@ -147,26 +151,30 @@ char	*ft_memjoin(char const *s1, char const *s2)
 	char	*s3;
 	size_t	s1_length;
 	size_t	s2_length;
-	printf("test");
+	printf("MEMJOIN: s1 = %s\n", s1);
+	printf("MEMJOIN: s2 = %s\n", s2);
 	s1_length = ft_strlen(s1);
 	s2_length = ft_strlen(s2);
-	printf("s1_length = %zu\n", s1_length);
-		if (!s1 && s2)
-			return (ft_strdup(s2));
-		else if (!s2 && s1)
-			return (ft_strdup(s1));
-		else if (s1 && s2)
-		{
-			s3 = malloc((s1_length + s2_length) + 1);
-			if (!s3)
-				return (NULL);
-			ft_strlcpy(s3, s1, (s1_length + 1));
-			ft_strlcat(s3, s2, ((s1_length + s2_length) + 1));
-			free((void*)s1);
-			return (s3);
-		}
-		return (NULL);
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	else if (!s2 && s1)
+		return (ft_strdup(s1));
+	else if (s1 && s2)
+	{
+		s3 = malloc((s1_length + s2_length) + 1);
+		if (!s3)
+			return (NULL);
+		ft_strlcpy(s3, s1, (s1_length + 1));
+		ft_strlcat(s3, s2, ((s1_length + s2_length) + 1));
+		free((void*)s1);
+		printf("MEMJOIN: test\n");
+		printf("MEMJOIN: s3 after cat = '%s'\n", s3);
+		return (s3);
+	}
+	return (NULL);
 }
+
+
 
 /*
 void	memdel(void *mem)

@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 13:54:40 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/10/22 10:16:24 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/11 09:58:49 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i_s;
+	size_t	i;
 
-	i_s = 0;
-	while (s[i_s] != '\0')
-		i_s++;
-	return (i_s);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
