@@ -6,24 +6,36 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:55:14 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/12 10:42:05 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:03:27 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-/*
-int	main(void)
-{
-	int	fd;
-	char	*result;
 
-	fd = open("file.txt", O_RDONLY);
-	result = get_next_line(fd);
-	printf("Final returned value = '%s'\n", result);
-	return (0);
-}
-*/
+// int	main(void)
+// {
+// 	int	fd;
+// 	char	*result;
+
+// 	fd = open("file.txt", O_RDONLY);
+// 	result = get_next_line(fd);
+// 	free((void *)result);
+// 	return (0);
+// }
+
+// void	ft_putstr(char *str)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		write(1, &str[i], 1);
+// 		i++;
+// 	}
+// }
+
 char	*get_next_line(int fd)
 {
 	char		*line;
@@ -54,14 +66,14 @@ int	get_line(int fd, char **remaining_ptr)
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
 		buffer[read_output] = '\0';
-		if (read_output == -1 || buffer == NULL)
+		if (read_output == -1)
 		{
 			free(buffer);
-			buffer = NULL;
 			return (0);
 		}
 		*remaining_ptr = ft_memjoin(*remaining_ptr, buffer);
 	}
+	free((void *)buffer);
 	return (1);
 }
 
@@ -70,7 +82,6 @@ char	*ft_memjoin(char const *s1, char const *s2)
 	char	*s3;
 	size_t	s1_length;
 	size_t	s2_length;
-
 	s1_length = ft_strlen(s1);
 	s2_length = ft_strlen(s2);
 	if (!s1 && s2)
@@ -98,16 +109,15 @@ char	*crop_front(char *src)
 
 	length = 0;
 	i = 0;
-	while (src[length] && src[length] != '\n')
+	while (src[length] != '\0' && src[length] != '\n')
 		length++;
-	dst = malloc(sizeof(char) * (length + 1));
-	if (!dst || src[length] == '\0')
+	dst = malloc(sizeof(char) * (length + 2));
+	if (!dst || src[0] == '\0')
 	{
 		free((void *)dst);
-		dst = NULL;
 		return (NULL);
 	}
-	while (i <= length)
+	while (i < length + 1)
 	{
 		dst[i] = src[i];
 		i++;
@@ -118,25 +128,30 @@ char	*crop_front(char *src)
 
 char	*crop_end(char *src)
 {
+	// ft_putstr_nl("test");
+	// ft_putstr_nl(src);
 	size_t	i;
-
 	i = 0;
-	if (src != NULL && *src != '\0')
+	if (src != NULL || *src != '\0')
 	{
-		while (src[i] && src[i] != '\n')
+		while (src[i + 1] != '\0' && src[i] != '\n')
 			i++;
-		if (src[i + 1] == '\0')
+		if (src[i] == '\n' && src[i + 1] == '\0')
 		{
 			free((void *)src);
-			src = NULL;
 			return (NULL);
 		}
 		else if (src[i] == '\n')
 			return (ft_strdup(&src[i + 1]));
+		else if (src[i + 1] == '\0')
+		{
+			free((void *)src);
+			return (NULL);
+		}
 		else
 			return (ft_strdup(src));
 	}
 	free((void *)src);
-	src = NULL;
 	return (NULL);
 }
+
