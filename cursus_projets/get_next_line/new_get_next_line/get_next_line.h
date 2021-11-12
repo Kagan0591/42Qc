@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:54:05 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/11 12:23:16 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/12 10:42:24 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define GET_NEXT_LINE_H
 # define OPEN_MAX 1024;
 
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <limits.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <limits.h>
 
 char	*get_next_line(int fd);
 int		get_line(int fd, char **remaining_ptr);

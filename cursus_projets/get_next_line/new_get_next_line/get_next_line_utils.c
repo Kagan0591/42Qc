@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:54:17 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/11 18:38:23 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/12 10:41:34 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		i_src++;
 	}
 	dst[i_dest] = '\0';
-	printf("STRLCAT: src = %s\n", src);
-	printf("STRLCAT: dst = %s\n", dst);
 	return (destlenght + srclenght);
 }
 
@@ -80,7 +78,7 @@ char	*ft_strdup(const char *s1)
 	if (!s2)
 		return (0);
 	ft_strlcpy(s2, s1, s1_length);
-	free((void*)s1);
+	free((void *)s1);
 	return (s2);
 }
 
