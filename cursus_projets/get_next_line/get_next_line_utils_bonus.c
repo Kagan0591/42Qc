@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:54:17 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/12 16:15:01 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/15 10:42:06 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -49,6 +48,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	size_t	i_src;
 	size_t	destlenght;
 	size_t	srclenght;
+
 	i_dest = 0;
 	i_src = 0;
 	destlenght = ft_strlen(dst);

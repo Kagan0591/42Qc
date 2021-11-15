@@ -1,27 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:55:14 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/12 17:03:27 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/11/15 16:21:36 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 // int	main(void)
 // {
 // 	int	fd;
 // 	char	*result;
+// 	char	*result2;
 
 // 	fd = open("file.txt", O_RDONLY);
 // 	result = get_next_line(fd);
+// 	fd = open("file2.txt", O_RDONLY);
+// 	result2 = get_next_line(fd);
 // 	free((void *)result);
+// 	free((void *)result2);
 // 	return (0);
+// }
+
+// void	ft_putchar(char c)
+// {
+// 	write(1, &c, 1);
+// }
+
+// void	ft_putnbr(int n)
+// {
+// 	long	nbr;
+
+// 	nbr = n;
+// 	if (nbr < 0)
+// 	{
+// 		ft_putchar('-');
+// 		nbr *= -1;
+// 	}
+// 	if ((nbr / 10) != 0)
+// 		ft_putnbr(nbr / 10);
+// 	ft_putchar((nbr % 10) + 48);
 // }
 
 // void	ft_putstr(char *str)
@@ -39,14 +62,14 @@
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*remaining;
+	static char	*remaining[FD_SIZE];
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (get_line(fd, &remaining) == 0)
+	if (get_line(fd, &remaining[fd]) == 0)
 		return (NULL);
-	line = crop_front(remaining);
-	remaining = crop_end(remaining);
+	line = crop_front(remaining[fd]);
+	remaining[fd] = crop_end(remaining[fd]);
 	return (line);
 }
 
@@ -82,6 +105,7 @@ char	*ft_memjoin(char const *s1, char const *s2)
 	char	*s3;
 	size_t	s1_length;
 	size_t	s2_length;
+
 	s1_length = ft_strlen(s1);
 	s2_length = ft_strlen(s2);
 	if (!s1 && s2)
@@ -114,7 +138,7 @@ char	*crop_front(char *src)
 	dst = malloc(sizeof(char) * (length + 2));
 	if (!dst || src[0] == '\0')
 	{
-		free((void *)dst);
+		free(dst);
 		return (NULL);
 	}
 	while (i < length + 1)
@@ -128,30 +152,21 @@ char	*crop_front(char *src)
 
 char	*crop_end(char *src)
 {
-	// ft_putstr_nl("test");
-	// ft_putstr_nl(src);
+	char	*dst;
 	size_t	i;
+
 	i = 0;
-	if (src != NULL || *src != '\0')
+	if (src != NULL || src[i] != '\0')
 	{
 		while (src[i + 1] != '\0' && src[i] != '\n')
 			i++;
-		if (src[i] == '\n' && src[i + 1] == '\0')
+		if (src[i] == '\n' && src[i + 1] != '\0')
 		{
+			dst = ft_strdup(&src[i + 1]);
 			free((void *)src);
-			return (NULL);
+			return (dst);
 		}
-		else if (src[i] == '\n')
-			return (ft_strdup(&src[i + 1]));
-		else if (src[i + 1] == '\0')
-		{
-			free((void *)src);
-			return (NULL);
-		}
-		else
-			return (ft_strdup(src));
 	}
 	free((void *)src);
 	return (NULL);
 }
-

@@ -5,137 +5,132 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 14:03:55 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/11/05 11:14:23 by tchalifo         ###   ########.fr       */
+/*   Created: 2021/11/11 10:55:14 by tchalifo          #+#    #+#             */
+/*   Updated: 2021/11/15 10:38:01 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-#include <unistd.h>
 
-/* get_line est utilise pour retrouver BUFFER_SIZE nombres de charactere
- * dans un fichier puis les ecrires dans la variable char *buffer.
- * Ensuite, il joint le buffer a la chaine line. Puis, il s assurera de copier
- * dans la chaine remaining le reste du buffer */
+// int	main(void)
+// {
+// 	int	fd;
+// 	char	*result;
+
+// 	fd = open("file.txt", O_RDONLY);
+// 	result = get_next_line(fd);
+// 	free((void *)result);
+// 	return (0);
+// }
 
 char	*get_next_line(int fd)
 {
-	char	*line;
+	char		*line;
 	static char	*remaining;
 
-	if (remaining)
-		line = ft_strjoin(remaining, get_line(fd, &remaining));
-	else
-		line = get_line(fd, &remaining);
-	if (ft_strchr(line, '\n') != 0)
-		remaining = ft_strldup(ft_strchr(line, '\n'), ft_strlen(ft_strchr(line, '\n')));
-	//printf("Remaining = %s\n", remaining);
-	//printf("line value = %s\n", line);
-	ft_cropfront(&line, '\n');
-	//printf("remaining value = %s\n", remaining);
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (get_line(fd, &remaining) == 0)
+		return (NULL);
+	line = crop_front(remaining);
+	remaining = crop_end(remaining);
 	return (line);
 }
 
-void	ft_cropfront(char **s1, char c)
+int	get_line(int fd, char **remaining_ptr)
 {
-	//printf("test");
-	char	*s2;
-	size_t	count;
-	//printf("test");
-	count = 0;
-	while (*s1[count] != '\0' && *s1[count] != c)
-		count++;
-	//printf("count = %zu\n", count);
-	s2 = ft_strldup(*s1, count + 1);
-	free(*s1);
-	*s1 = s2;
-}
-
-char	*get_line(int fd, char **remaining)
-{
-	char	buffer[BUFFER_SIZE + 1];
-	char	*line;
-	int		read_output;
+	char		*buffer;
+	int			read_output;
 
 	read_output = 1;
-	line = NULL;
-	while (!ft_strchr(line, '\n'))
+	buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	if (!buffer)
+	{
+		free(buffer);
+		return (0);
+	}
+	while (!ft_strchr(*remaining_ptr, '\n') && read_output != 0)
 	{
 		read_output = read(fd, buffer, BUFFER_SIZE);
-		//printf("%d\n", read_output);
-		if (read_output <= 0)
+		buffer[read_output] = '\0';
+		if (read_output == -1)
 		{
-			*remaining = ft_substr(*remaining, count_char(*remaining, '\n'), ft_strlen(*remaining) - count_char(*remaining, '\n'));
+			free(buffer);
 			return (0);
 		}
-		buffer[read_output] = '\0';
-		if (!line)
-			line = ft_strldup(buffer, ft_strlen(buffer));
-		else
-			line = ft_strjoin(line, buffer);
+		*remaining_ptr = ft_memjoin(*remaining_ptr, buffer);
 	}
-	return (line);
+	free((void *)buffer);
+	return (1);
 }
 
-size_t	count_char(const char *s, const char c)
+char	*ft_memjoin(char const *s1, char const *s2)
 {
-	size_t	count_char;
-	size_t	i_s;
+	char	*s3;
+	size_t	s1_length;
+	size_t	s2_length;
 
-	count_char = 0;
-	i_s = 0;
-	while (s[i_s] != '\0')
+	s1_length = ft_strlen(s1);
+	s2_length = ft_strlen(s2);
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	else if (!s2 && s1)
+		return (ft_strdup(s1));
+	else if (s1 && s2)
 	{
-		if ((char)s[i_s] == c)
-			return (count_char + 1);
-		while ((char)s[i_s] != c && s[i_s] != '\0')
-		{
-			count_char++;
-			i_s++;
-		}
+		s3 = malloc(sizeof(char) * (s1_length + s2_length) + 1);
+		if (!s3)
+			return (NULL);
+		ft_strlcpy(s3, s1, (s1_length + 1));
+		ft_strlcat(s3, s2, ((s1_length + s2_length) + 1));
+		free((void *)s1);
+		return (s3);
 	}
-	return (count_char);
+	return (NULL);
 }
 
-char	*ft_strldup(const char *s1, size_t len)
+char	*crop_front(char *src)
 {
-	char	*s2;
-	size_t	i_s1;
+	int		length;
+	int		i;
+	char	*dst;
 
-	i_s1 = ft_strlen(s1);
-	if (i_s1 > len)
-		i_s1 = len;
-	s2 = malloc(sizeof(char) * i_s1 + 1);
-	if (!s2)
-		return (0);
-	ft_strlcpy(s2, s1, i_s1 + 1);
-	return (s2);
+	length = 0;
+	i = 0;
+	while (src[length] != '\0' && src[length] != '\n')
+		length++;
+	dst = malloc(sizeof(char) * (length + 2));
+	if (!dst || src[0] == '\0')
+	{
+		free((void *)dst);
+		return (NULL);
+	}
+	while (i < length + 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
 
-#include <fcntl.h>
-int	main(void)
+char	*crop_end(char *src)
 {
-	int	fd;
-	char	*display;
-	int i;
-	int j;
+	char	*dst;
+	size_t	i;
 
 	i = 0;
-	j = 0;
-	fd = open("test.txt", O_RDONLY);
-	while (i != 4)
+	if (src != NULL || *src != '\0')
 	{
-		display = get_next_line(fd);
-		while (display[j] != '\0')
+		while (src[i + 1] != '\0' && src[i] != '\n')
+			i++;
+		if (src[i] == '\n' && src[i + 1] != '\0')
 		{
-			write(1, &display[j], 1);
-			j++;
+			dst = ft_strdup(&src[i + 1]);
+			free((void *)src);
+			return (dst);
 		}
-		j = 0;
-		i++;
-		free(display);
 	}
-	close(fd);
-	return (0);
+	free((void *)src);
+	return (NULL);
 }
