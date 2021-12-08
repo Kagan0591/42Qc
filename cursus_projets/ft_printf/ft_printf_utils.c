@@ -57,11 +57,11 @@ static int	numlen(int n)
 	if (n < 0)
 	{
 		count++;
-		n = n * -1;
+		n = -n;
 	}
 	while (n > 9)
 	{
-		n = n / 10;
+		n /= 10;
 		count++;
 	}
 	return (count);
@@ -104,4 +104,19 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+}
+
+void	ft_putnbr(int n)
+{
+	long	nbr;
+
+	nbr = n;
+	if (nbr < 0)
+	{
+		ft_putchar('-');
+		nbr *= -1;
+	}
+	if ((nbr / 10) != 0)
+		ft_putnbr(nbr / 10);
+	ft_putchar((nbr % 10) + 48);
 }
