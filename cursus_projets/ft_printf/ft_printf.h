@@ -30,8 +30,8 @@ void	ft_putchar(char c);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
-char	*ft_itoa(int n);
-void	ft_putstr(char *str);
+char	*ft_itoa(long n);
+int	ft_putstr(char *str);
 void	ft_putnbr(int n);
 
 #endif

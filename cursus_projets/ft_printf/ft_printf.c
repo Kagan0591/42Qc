@@ -18,14 +18,25 @@ void	type_selector(const char *str, t_print *p_data)
 	//write(1, "b", 1);
 	if (str[p_data->i] == 'd' || str[p_data->i] == 'i')
 	{
-		ft_putstr(ft_itoa(va_arg(p_data->valist, int))); // je doit compter tout les chiffres utiliser numlen !!
+		p_data->count = p_data->count + ft_putstr(ft_itoa(va_arg(p_data->valist, int))); // je doit compter tout les chiffres utiliser numlen !!
 		p_data->i++;
 	}
 	//ft_putnbr(p_data->i);
 	if (str[p_data->i] == 'c')
 	{
-		p_data->count = write(1, va_arg(p_data->valist, char *), 1);
+		p_data->count = p_data->count + write(1, va_arg(p_data->valist, char *), 1);
 		p_data->i++;
+	}
+	if (str[p_data->i] == 's')
+	{
+		ft_putnbr(p_data->count);
+		p_data->count = p_data->count + ft_putstr(va_arg(p_data->valist, char *));
+		ft_putnbr(p_data->count);
+		p_data->i++;
+	}
+	if(str[p_data->i] == 'u')
+	{
+		p_data->count = p_data->count + ft_putstr(ft_itoa(va_arg(p_data->valist)))
 	}
 
 }
@@ -54,6 +65,7 @@ int	ft_printf(const char *str, ...)
 			//ft_putnbr(data->i);
 			type_selector(str, data);
 		}
+		//ft_putnbr(data->count);
 
 	}
 
@@ -62,6 +74,10 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	ft_printf("Bonjour%c", "z");
+	//int	count_num;
+
+	//count_num = 0;
+	ft_printf("Bonjour %s123%d\n", "zero", 5);
+	//ft_printf("nombre de chars = %d", count_num);
 	return (0);
 }

@@ -49,7 +49,8 @@ char	*ft_strdup(const char *s1)
 	return (s2);
 }
 
-static int	numlen(int n)
+/*
+static int	numlen_old(int n)
 {
 	int	count;
 
@@ -67,7 +68,7 @@ static int	numlen(int n)
 	return (count);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_old(int n)
 {
 	char	*str;
 	int		i_str;
@@ -93,17 +94,58 @@ char	*ft_itoa(int n)
 	str[i_str] = n + 48;
 	return (str);
 }
+*/
 
-void	ft_putstr(char *str)
+static long	numlen(long n)
+{
+	long	count;
+
+	count = 1;
+	if (n < 0)
+	{
+		count++;
+		n = -n;
+	}
+	while (n > 9)
+	{
+		n /= 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa(unsigned int n)
+{
+	char	*str;
+	unsigned int	i_str;
+
+	i_str = numlen(n);
+	str = malloc(i_str + 1);
+	if (!str)
+		return (0);
+	str[i_str--] = '\0';
+	while (n > 9)
+	{
+		str[i_str--] = (n % 10) + 48;
+		n = n / 10;
+	}
+	str[i_str] = n + 48;
+	return (str);
+}
+
+int	ft_putstr(char *str)
 {
 	size_t	i;
+	int	count;
 
 	i = 0;
 	while (str[i])
 	{
 		write(1, &str[i], 1);
 		i++;
+		count++;
 	}
+	return (count);
 }
 
 void	ft_putnbr(int n)
