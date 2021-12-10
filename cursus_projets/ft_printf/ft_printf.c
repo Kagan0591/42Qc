@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 13:11:28 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/12/08 17:49:40 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/12/10 10:25:23 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	type_selector(const char *str, t_print *p_data)
 	//write(1, "b", 1);
 	if (str[p_data->i] == 'd' || str[p_data->i] == 'i')
 	{
-		ft_putstr(ft_itoa(va_arg(p_data->valist, int))); // je doit compter tout les chiffres utiliser numlen !!
+		p_data->count = p_data->count + (write(1, ft_putnbr(va_arg(p_data->valist, int)), 4));
+		//ft_putstr(ft_itoa(va_arg(p_data->valist, int))); // je doit compter tout les chiffres utiliser numlen !!
 		p_data->i++;
 	}
 	//ft_putnbr(p_data->i);
@@ -27,6 +28,7 @@ void	type_selector(const char *str, t_print *p_data)
 		p_data->count = write(1, va_arg(p_data->valist, char *), 1);
 		p_data->i++;
 	}
+
 
 }
 
@@ -43,9 +45,6 @@ int	ft_printf(const char *str, ...)
 	data->count = 0;
 	while (str[data->i] != '\0')
 	{
-		ft_putchar(str[data->i]);
-		data->i++;
-		data->count++;
 		if (str[data->i] == '%')
 		{
 			//ft_putnbr(data->i);
@@ -54,7 +53,12 @@ int	ft_printf(const char *str, ...)
 			//ft_putnbr(data->i);
 			type_selector(str, data);
 		}
-
+		else
+		{
+			ft_putchar(str[data->i]);
+			data->i++;
+			data->count++;
+		}
 	}
 
 	return (data->count);
@@ -62,6 +66,5 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	ft_printf("Bonjour%c", "z");
-	return (0);
+	ft_printf("Bonjour%d", 123);
 }
