@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 13:11:28 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/12/10 10:25:23 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:04:37 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,42 @@
 
 void	type_selector(const char *str, t_print *p_data)
 {
-	//ft_putnbr(p_data->i);
-	//write(1, "b", 1);
 	if (str[p_data->i] == 'd' || str[p_data->i] == 'i')
 	{
-		p_data->count = p_data->count + (write(1, ft_putnbr(va_arg(p_data->valist, int)), 4));
-		//ft_putstr(ft_itoa(va_arg(p_data->valist, int))); // je doit compter tout les chiffres utiliser numlen !!
+		p_data->count = p_data->count + ft_putnbr(va_arg(p_data->valist, int));
+		//ft_putstr(ft_itoa(va_arg(p_data->valist, int)));
 		p_data->i++;
 	}
-	//ft_putnbr(p_data->i);
+	if(str[p_data->i] == 'u')
+	{
+		p_data->count = p_data->count + ft_putnbr_unsigned(va_arg(p_data->valist, int));
+		p_data->i++;
+	}
+	if (str[p_data->i] == 'X')
+	{
+		p_data->count = p_data->count + ft_putnbr_Hexa(va_arg(p_data->valist, long));
+		p_data->i++;
+	}
+	if (str[p_data->i] == 'x')
+	{
+		p_data->count = p_data->count + ft_putnbr_hexa(va_arg(p_data->valist, long));
+		p_data->i++;
+	}
 	if (str[p_data->i] == 'c')
 	{
-		p_data->count = write(1, va_arg(p_data->valist, char *), 1);
+		p_data->count = p_data->count + write(1, va_arg(p_data->valist, char *), 1);
 		p_data->i++;
 	}
-
-
+	if (str[p_data->i] == 's')
+	{
+		p_data->count = p_data->count + ft_putstr(va_arg(p_data->valist, char *));
+		p_data->i++;
+	}
+	if (str[p_data->i] == 'p')
+	{
+		p_data->count = p_data->count + ft_putmem(va_arg(p_data->valist, char *));
+		p_data->i++;
+	}
 }
 
 
@@ -47,10 +67,7 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[data->i] == '%')
 		{
-			//ft_putnbr(data->i);
-			//write(1, "a", 1);
 			data->i++;
-			//ft_putnbr(data->i);
 			type_selector(str, data);
 		}
 		else
@@ -63,8 +80,12 @@ int	ft_printf(const char *str, ...)
 
 	return (data->count);
 }
-
+#include <stdio.h>
 int	main(void)
 {
-	ft_printf("Bonjour%d", 123);
+	char * a;
+	a = "Bonjour";
+
+	ft_printf("%p\n", a);
+	//printf("%p\n", a);
 }

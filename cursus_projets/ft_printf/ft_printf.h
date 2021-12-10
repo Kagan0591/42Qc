@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 13:11:59 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/12/08 14:42:45 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:02:31 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ typedef	struct s_print
 }t_print;
 
 
-int		ft_printf(const char *, ...);
-void	ft_putchar(char c);
-size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*ft_strdup(const char *s1);
-char	*ft_itoa(int n);
-void	ft_putstr(char *str);
-void	ft_putnbr(int n);
+int				ft_printf(const char *, ...);
+size_t			ft_strlen(const char *s);
+size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char			*ft_strdup(const char *s1);
+char			*ft_itoa(int n);
+void			ft_putchar(char c);
+int				ft_putstr(char *str);
+int				ft_putnbr(int n);
+unsigned int	ft_putnbr_unsigned(unsigned int n);
+unsigned int	ft_putnbr_Hexa(unsigned long n);
+unsigned int	ft_putnbr_hexa(unsigned long n);
+unsigned int	ft_putmem(void *mem);
 
 #endif

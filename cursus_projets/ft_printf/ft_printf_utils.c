@@ -49,6 +49,7 @@ char	*ft_strdup(const char *s1)
 	return (s2);
 }
 
+
 static int	numlen(int n)
 {
 	int	count;
@@ -94,29 +95,90 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-void	ft_putstr(char *str)
+
+int	ft_putstr(char *str)
 {
 	size_t	i;
+	int	count;
 
 	i = 0;
+	count = 0;
 	while (str[i])
 	{
 		write(1, &str[i], 1);
 		i++;
+		count++;
 	}
+	return (count);
 }
 
-void	ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
 	long	nbr;
 
+	static int count;
+
+	count++;
 	nbr = n;
 	if (nbr < 0)
 	{
 		ft_putchar('-');
 		nbr *= -1;
+		count++;
 	}
 	if ((nbr / 10) != 0)
 		ft_putnbr(nbr / 10);
 	ft_putchar((nbr % 10) + 48);
+	return (count);
+}
+
+unsigned int	ft_putnbr_unsigned(unsigned int n)
+{
+	unsigned int	nbr;
+	static unsigned int count;
+
+	count++;
+	nbr = n;
+	if ((nbr / 10) != 0)
+		ft_putnbr_unsigned(nbr / 10);
+	ft_putchar((nbr % 10) + 48);
+	return (count);
+}
+
+unsigned int	ft_putnbr_Hexa(unsigned long n)
+{
+	static unsigned int	count;
+
+	count++;
+	if ((n / 16) != 0)
+		ft_putnbr_Hexa(n / 16);
+	if ((n % 16) > 9)
+		ft_putchar((n % 16) + 55);
+	else
+		ft_putchar((n % 16) + 48);
+	return (count);
+}
+
+unsigned int	ft_putnbr_hexa(unsigned long n)
+{
+	static unsigned int	count;
+
+	count++;
+	if ((n / 16) != 0)
+		ft_putnbr_hexa(n / 16);
+	if ((n % 16) > 9)
+		ft_putchar((n % 16) + 87);
+	else
+		ft_putchar((n % 16) + 48);
+	return (count);
+}
+
+unsigned int	ft_putmem(void *mem)
+{
+	static unsigned int	count;
+
+	count = 2;
+	ft_putstr("0x");
+	count = count + ft_putnbr_hexa((unsigned long) mem);
+	return count;
 }
