@@ -15,41 +15,23 @@
 void	type_selector(const char *str, t_print *p_data)
 {
 	if (str[p_data->i] == 'd' || str[p_data->i] == 'i')
-	{
 		p_data->count = p_data->count + ft_putnbr(va_arg(p_data->valist, int));
 		//ft_putstr(ft_itoa(va_arg(p_data->valist, int)));
-		p_data->i++;
-	}
-	if(str[p_data->i] == 'u')
-	{
+	else if(str[p_data->i] == 'u')
 		p_data->count = p_data->count + ft_putnbr_unsigned(va_arg(p_data->valist, int));
-		p_data->i++;
-	}
-	if (str[p_data->i] == 'X')
-	{
+	else if (str[p_data->i] == 'X')
 		p_data->count = p_data->count + ft_putnbr_Hexa(va_arg(p_data->valist, long));
-		p_data->i++;
-	}
-	if (str[p_data->i] == 'x')
-	{
+	else if (str[p_data->i] == 'x')
 		p_data->count = p_data->count + ft_putnbr_hexa(va_arg(p_data->valist, long));
-		p_data->i++;
-	}
-	if (str[p_data->i] == 'c')
-	{
+	else if (str[p_data->i] == 'c')
 		p_data->count = p_data->count + write(1, va_arg(p_data->valist, char *), 1);
-		p_data->i++;
-	}
-	if (str[p_data->i] == 's')
-	{
+	else if (str[p_data->i] == 's')
 		p_data->count = p_data->count + ft_putstr(va_arg(p_data->valist, char *));
-		p_data->i++;
-	}
-	if (str[p_data->i] == 'p')
-	{
+	else if (str[p_data->i] == 'p')
 		p_data->count = p_data->count + ft_putmem(va_arg(p_data->valist, char *));
-		p_data->i++;
-	}
+	else
+		return (0);
+	p_data->i++;
 }
 
 
