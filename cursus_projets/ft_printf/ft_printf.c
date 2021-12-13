@@ -83,9 +83,9 @@ int	ft_printf(const char *str, ...)
 #include <stdio.h>
 int	main(void)
 {
-	char * a;
-	a = "Bonjour";
+	//int a;
+	//a = 125;
 
-	ft_printf("%p\n", a);
+	printf("Bonjour%d\n", 12);
 	//printf("%p\n", a);
 }

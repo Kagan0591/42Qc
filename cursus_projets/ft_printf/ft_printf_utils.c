@@ -175,7 +175,7 @@ unsigned int	ft_putnbr_hexa(unsigned long n)
 
 unsigned int	ft_putmem(void *mem)
 {
-	static unsigned int	count;
+	unsigned int	count;
 
 	count = 2;
 	ft_putstr("0x");
