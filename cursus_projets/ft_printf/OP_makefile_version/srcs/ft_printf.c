@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 13:11:28 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/12/10 17:04:37 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/12/15 15:41:07 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	type_selector(const char *str, t_print *p_data)
 	else if (str[p_data->i] == 'x')
 		p_data->count = p_data->count + ft_putnbr_hexa(va_arg(p_data->valist, long));
 	else if (str[p_data->i] == 'c')
-		p_data->count = p_data->count + write(1, va_arg(p_data->valist, char *), 1);
+		p_data->count = p_data->count + ft_putchar(va_arg(p_data->valist, int));
 	else if (str[p_data->i] == 's')
 		p_data->count = p_data->count + ft_putstr(va_arg(p_data->valist, char *));
 	else if (str[p_data->i] == 'p')
@@ -38,30 +38,30 @@ int	type_selector(const char *str, t_print *p_data)
 
 int	ft_printf(const char *str, ...)
 {
-	t_print	*data;
+	t_print	data;
 
-	data = (t_print *) malloc(sizeof(t_print));
-	if (!data)
-		return (-1);
-	va_start(data->valist, str);
-	data->i = 0;
-	data->count = 0;
-	while (str[data->i] != '\0')
+	// data = (t_print *) malloc(sizeof(t_print));
+	// if (!data)
+	// 	return (-1);
+	va_start(data.valist, str);
+	data.i = 0;
+	data.count = 0;
+	while (str[data.i] != '\0')
 	{
-		if (str[data->i] == '%')
+		if (str[data.i] == '%')
 		{
-			data->i++;
-			type_selector(str, data);
+			data.i++;
+			type_selector(str, &data);
 		}
 		else
 		{
-			ft_putchar(str[data->i]);
-			data->i++;
-			data->count++;
+			ft_putchar(str[data.i]);
+			data.i++;
+			data.count++;
 		}
 	}
 
-	return (data->count);
+	return (data.count);
 }
 #include <stdio.h>
 int	main(void)
@@ -69,6 +69,6 @@ int	main(void)
 	//int a;
 	//a = 125;
 
-	printf("Bonjour%d\n", 12);
-	//printf("%p\n", a);
+	ft_printf("%u\n", -42);
+	//printf("%u\n", -42);
 }

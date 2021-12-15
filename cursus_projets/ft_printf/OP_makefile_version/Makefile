@@ -71,7 +71,7 @@ bonus: ${NAME} ${BONUS_OBJS}
 	@echo "${BONUS_OBJS} ${GREEN} ${BOLD}\n\nObjects files And bonus objects files are added to the archive libftprintf.a correctly\n${END}"
 
 exec:
-	${CC} ${FLAGS} -o test ${SRCS_FILES}
+	${CC} ${FLAGS} -I${INCLUDE_DIR} -o test ${SRCS}
 
 test: norm
 	${CC} ${FLAGS} -Og -o test ${SRCS_FILES}

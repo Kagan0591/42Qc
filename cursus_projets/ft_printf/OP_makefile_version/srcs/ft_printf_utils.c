@@ -1,8 +1,8 @@
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
-	write(1, &c, 1);
+	return (write(1, &c, 1));
 }
 
 size_t	ft_strlen(const char *s)
@@ -103,6 +103,11 @@ int	ft_putstr(char *str)
 
 	i = 0;
 	count = 0;
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return (count + 6);
+	}
 	while (str[i])
 	{
 		write(1, &str[i], 1);
@@ -145,7 +150,7 @@ unsigned int	ft_putnbr_unsigned(unsigned int n)
 	return (count);
 }
 
-unsigned int	ft_putnbr_Hexa(unsigned long n)
+unsigned int	ft_putnbr_Hexa(unsigned int n)
 {
 	static unsigned int	count;
 
@@ -167,7 +172,7 @@ unsigned int	ft_putnbr_hexa(unsigned long n)
 	if ((n / 16) != 0)
 		ft_putnbr_hexa(n / 16);
 	if ((n % 16) > 9)
-		ft_putchar((n % 16) + 87);
+	 	ft_putchar((n % 16) + 87);
 	else
 		ft_putchar((n % 16) + 48);
 	return (count);
@@ -175,8 +180,10 @@ unsigned int	ft_putnbr_hexa(unsigned long n)
 
 unsigned int	ft_putmem(void *mem)
 {
-	unsigned int	count;
+	static unsigned int	count;
 
+	if (!mem)
+		return (write(1, "0x0", 3));
 	count = 2;
 	ft_putstr("0x");
 	count = count + ft_putnbr_hexa((unsigned long) mem);
