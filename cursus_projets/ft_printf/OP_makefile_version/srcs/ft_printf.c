@@ -6,7 +6,7 @@
 /*   By: tchalifo <tchalifo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 13:11:28 by tchalifo          #+#    #+#             */
-/*   Updated: 2021/12/15 15:41:07 by tchalifo         ###   ########.fr       */
+/*   Updated: 2021/12/17 15:04:26 by tchalifo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,48 @@ int	ft_printf(const char *str, ...)
 	return (data.count);
 }
 #include <stdio.h>
+#include <limits.h>
 int	main(void)
 {
-	//int a;
-	//a = 125;
+	char *str;
+	str = "Bonjour";
 
-	ft_printf("%u\n", -42);
-	//printf("%u\n", -42);
+	ft_printf("\nPrint unsigned int with negative number: %u\n", -42);
+	printf("Print unsigned int with negative number from original printf: %u\n\n", -42);
+
+	ft_printf("Print unsigned int MAX_VALUE: %u\n", UINT_MAX);
+	printf("Print unsigned int MAX_VALUE from original printf: %u\n\n", UINT_MAX);
+
+	ft_printf("Print int INT_MIN number: %d\n", INT_MIN);
+	printf("Print int INT_MIN number from original printf: %d\n\n", INT_MIN);
+
+	ft_printf("Print int INT_MAX number: %u\n", INT_MAX);
+	printf("Print int INT_MAX number from original printf: %u\n\n", INT_MAX);
+
+	ft_printf("Print d'un caractere: %c\n", 'c');
+	printf("Print d'un caractere: %c\n\n", 'c');
+
+	ft_printf("Print d'une chaine de caractere: %s\n", "Test d'une chaine");
+	printf("Print d'une chaine de caractere: %s\n\n", "Test d'une chaine");
+
+	ft_printf("Print HEXA_number with negative number: %X\n", -42);
+	printf("Print HEXA_number with negative number from original printf: %X\n\n", -42);
+
+	ft_printf("Print HEXA_number INT_MAX number: %X\n", INT_MAX);
+	printf("Print HEXA_number INT_MAX number from original printf: %X\n\n", INT_MAX);
+
+	ft_printf("Print HEXA_number INT_MIN number: %X\n", INT_MIN);
+	printf("Print HEXA_number INT_MAX number from original printf: %x\n\n", INT_MIN);
+
+	ft_printf("Print hexa_number with negative number: %X\n", -42);
+	printf("Print hexa_number with negative number from original printf: %X\n\n", -42);
+
+	ft_printf("Print hexa_number INT_MAX number: %X\n", INT_MAX);
+	printf("Print hexa_number INT_MAX number from original printf: %X\n\n", INT_MIN);
+
+	ft_printf("Print hexa_number INT_MIN number: %X\n", INT_MIN);
+	printf("Print HEXA_number INT_MIN number from original printf: %x\n\n", INT_MIN);
+
+	ft_printf("Print pointeur address: %p\n", str);
+	printf("Print pointeur address from original printf: %p\n\n", str);
 }
