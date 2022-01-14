@@ -1,100 +1,10 @@
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	ft_putchar(char c)
 {
 	return (write(1, &c, 1));
 }
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	srclenght;
-
-	i = 0;
-	srclenght = ft_strlen(src);
-	if (dstsize == 0)
-		return (srclenght);
-	while (src[i] != '\0' && dstsize-- > 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (srclenght);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*s2;
-	size_t	s1_length;
-
-	s1_length = ft_strlen(s1) + 1;
-	s2 = malloc(sizeof(*s2) * s1_length);
-	if (!s2)
-		return (0);
-	ft_strlcpy(s2, s1, s1_length);
-	free((void*)s1);
-	return (s2);
-}
-
-
-static int	numlen(int n)
-{
-	int	count;
-
-	count = 1;
-	if (n < 0)
-	{
-		count++;
-		n = -n;
-	}
-	while (n > 9)
-	{
-		n /= 10;
-		count++;
-	}
-	return (count);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*str;
-	int		i_str;
-
-	i_str = 0;
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	str = malloc(numlen(n) + 1);
-	if (!str)
-		return (0);
-	i_str = (numlen(n));
-	if (n < 0)
-	{
-		str[0] = '-';
-		n = n * -1;
-	}
-	str[i_str--] = '\0';
-	while (n > 9)
-	{
-		str[i_str--] = (n % 10) + 48;
-		n = n / 10;
-	}
-	str[i_str] = n + 48;
-	return (str);
-}
-
 
 int	ft_putstr(char *str)
 {
@@ -119,56 +29,52 @@ int	ft_putstr(char *str)
 
 int	ft_putnbr(int n)
 {
-	long	nbr;
+	int	count;
 
-	static int count;
-
-	count++;
-	nbr = n;
-	if (nbr < 0)
+	count = ft_numlen(n);
+	if (n == -2147483648)
+		return (write(1, "-2147483648", 11));
+	if (n < 0)
 	{
 		ft_putchar('-');
-		nbr *= -1;
-		count++;
+		n *= -1;
 	}
-	if ((nbr / 10) != 0)
-		ft_putnbr(nbr / 10);
-	ft_putchar((nbr % 10) + 48);
+	if ((n / 10) != 0)
+		ft_putnbr(n / 10);
+	ft_putchar((n % 10) + 48);
 	return (count);
 }
 
 unsigned int	ft_putnbr_unsigned(unsigned int n)
 {
-	unsigned int	nbr;
-	static unsigned int count;
+	int count;
 
-	count++;
-	nbr = n;
-	if ((nbr / 10) != 0)
-		ft_putnbr_unsigned(nbr / 10);
-	ft_putchar((nbr % 10) + 48);
+	count = ft_unsigned_numlen(n);
+	if ((n / 10) != 0)
+		ft_putnbr_unsigned(n / 10);
+	ft_putchar((n % 10) + 48);
 	return (count);
 }
 
 unsigned int	ft_putnbr_Hexa(unsigned int n)
 {
-	static unsigned int	count;
+	unsigned int	count;
 
-	count++;
+	count = ft_hexa_numlen(n);
 	if ((n / 16) != 0)
 		ft_putnbr_Hexa(n / 16);
 	if ((n % 16) > 9)
-		ft_putchar((n % 16) + 55);
+	 	ft_putchar((n % 16) + 55);
 	else
 		ft_putchar((n % 16) + 48);
 	return (count);
 }
 
-unsigned int	ft_putnbr_hexa(unsigned long n)
+unsigned int	ft_putnbr_hexa(unsigned int n)
 {
-	static unsigned int	count;
+	unsigned int	count;
 
-	count++;
+	count = ft_hexa_numlen(n);
 	if ((n / 16) != 0)
 		ft_putnbr_hexa(n / 16);
 	if ((n % 16) > 9)
@@ -178,14 +84,89 @@ unsigned int	ft_putnbr_hexa(unsigned long n)
 	return (count);
 }
 
+unsigned int	ft_putnbr_long_hexa(unsigned long n)
+{
+	unsigned int	count;
+
+	count = ft_hexa_long_numlen(n);
+	if ((n / 16) != 0)
+		ft_putnbr_long_hexa(n / 16);
+	if ((n % 16) > 9)
+	 	ft_putchar((n % 16) + 87);
+	else
+		ft_putchar((n % 16) + 48);
+	return (count);
+}
+
 unsigned int	ft_putmem(void *mem)
 {
-	static unsigned int	count;
+	unsigned int	count;
 
-	if (!mem)
+	if (!mem || mem == 0)
 		return (write(1, "0x0", 3));
-	count = 2;
 	ft_putstr("0x");
-	count = count + ft_putnbr_hexa((unsigned long) mem);
-	return count;
+	count = 2;
+	count = count + ft_putnbr_long_hexa((unsigned long) mem);
+	return (count);
+}
+
+int	ft_numlen(int n)
+{
+	int	count;
+
+	count = 0;
+	if (n < 0)
+	{
+		count++;
+		n = -n;
+	}
+	while (n > 9)
+	{
+		n /= 10;
+		count++;
+	}
+	count++;
+	return (count);
+}
+
+int	ft_unsigned_numlen(unsigned int n)
+{
+	int	count;
+
+	count = 0;
+	while (n > 9)
+	{
+		n /= 10;
+		count++;
+	}
+	count++;
+	return (count);
+}
+
+int	ft_hexa_numlen(unsigned int n)
+{
+	int	count;
+
+	count = 0;
+	while (n > 15)
+	{
+		n /= 16;
+		count++;
+	}
+	count++;
+	return (count);
+}
+
+int	ft_hexa_long_numlen(unsigned long n)
+{
+	int	count;
+
+	count = 0;
+	while (n > 15)
+	{
+		n /= 16;
+		count++;
+	}
+	count++;
+	return (count);
 }

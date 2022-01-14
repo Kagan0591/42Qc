@@ -24,19 +24,18 @@ typedef	struct s_print
 	int	i;
 }t_print;
 
-
 int				ft_printf(const char *, ...);
 int				type_selector(const char *str, t_print *p_data);
-size_t			ft_strlen(const char *s);
-size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char			*ft_strdup(const char *s1);
-char			*ft_itoa(int n);
 int				ft_putchar(char c);
 int				ft_putstr(char *str);
 int				ft_putnbr(int n);
 unsigned int	ft_putnbr_unsigned(unsigned int n);
 unsigned int	ft_putnbr_Hexa(unsigned int n);
-unsigned int	ft_putnbr_hexa(unsigned long n);
+unsigned int	ft_putnbr_hexa(unsigned int n);
 unsigned int	ft_putmem(void *mem);
+int				ft_numlen(int n);
+int				ft_unsigned_numlen(unsigned int n);
+int				ft_hexa_numlen(unsigned int n);
+int				ft_hexa_long_numlen(unsigned long n);
 
 #endif
