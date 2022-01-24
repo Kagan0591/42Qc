@@ -8,7 +8,8 @@ NAME = push_swap
 
 SRCS_FILES 		=	push_swap.c \
 					push_swap_utils.c \
-					stack_functions.c \
+					push_swap_stack_functions.c \
+					push_swap_algo_functions.c \
 
 #B_SRCS_FILES	= 	 \
 
