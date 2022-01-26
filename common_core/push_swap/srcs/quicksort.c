@@ -36,3 +36,8 @@ stack	*finding_pivot(stack *pt_to_stack_a)
 	}
 	return (pt_to_stack_a);
 }
+
+stack	*finding_higher(stack *pt_to_stack_a)
+{
+
+}
