@@ -37,7 +37,7 @@ stack	*reverse_rotate_b(stack *p_stk);
 
 // Algo quicksort
 void	quicksort(stack *stack_a);
-int	finding_pivot(stack **pt_to_stack_a);
+stack	*finding_pivot(stack *pt_to_stack_a);
 
 // Algo devide and conquer 1
 void	sort_algo(stack **ptr_stack_a, stack **ptr_stk_b);
