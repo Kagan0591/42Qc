@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdio.h>
 
 typedef enum
 {
@@ -24,6 +25,7 @@ boolean	checkif_isdigit(char **argv);
 boolean	checkif_isint(char **argv);
 boolean	checkif_repeated_number(char **argv);
 stack	*push_argv_to_stk(int argc, char **argv);
+int		indexing_the_stack(stack *stack_a);
 
 // Algo functions
 stack	*swap_stkvalue_a(stack *p_stk);
@@ -38,6 +40,9 @@ stack	*reverse_rotate_b(stack *p_stk);
 // Algo quicksort
 void	quicksort(stack *stack_a);
 stack	*finding_pivot(stack *pt_to_stack_a);
+void	swap_the_smaller_and_bigger(stack *stack_a, stack *pivot);
+stack	*finding_bigger_than_pivot(stack *pt_to_stack_a, stack *pivot);
+stack	*finding_smaller_than_pivot(stack *pt_to_stack_a, stack *pivot);
 
 // Algo devide and conquer 1
 void	sort_algo(stack **ptr_stack_a, stack **ptr_stk_b);

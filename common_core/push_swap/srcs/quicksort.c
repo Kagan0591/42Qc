@@ -18,15 +18,37 @@
 */
 #include "push_swap.h"
 
+
 void	quicksort(stack *stack_a)
 {
 	stack	*pt_to_pivot;
+	stack	*bigger_than_pivot;
+	stack	*smaller_than_pivot;
 
 	pt_to_pivot = finding_pivot(stack_a);
-	ft_putstr("Le pivot est : ");
-	ft_putnbr(pt_to_pivot->arg);
-	ft_putstr("\n\nle premier nombre\n");
-	ft_putnbr(stack_a->arg);
+	swap_the_smaller_and_bigger(stack_a, pt_to_pivot);
+	printf("l addresse de pt_to_stack_a = %p", stack_a);
+	// ft_putstr("Le pivot est : ");
+	// ft_putnbr(pt_to_pivot->arg);
+	// ft_putstr("\n\nle premier nombre est : ");
+	// ft_putnbr(stack_a->arg);
+	// bigger_than_pivot = finding_bigger_than_pivot(stack_a, pt_to_pivot);
+	// ft_putstr("\n\nLe prochain nombre plus grand que le pivot est : ");
+	// ft_putnbr(bigger_than_pivot->arg);
+	// smaller_than_pivot = finding_smaller_than_pivot(stack_a, pt_to_pivot);
+	// ft_putstr("\n\nLe prochain nombre plus petit que le pivot est : ");
+	// ft_putnbr(smaller_than_pivot->arg);
+
+}
+void	swap_the_smaller_and_bigger(stack *stack_a, stack *pivot)
+{
+	stack	*bigger_than_pivot;
+	stack	*smaller_than_pivot;
+
+	bigger_than_pivot = finding_bigger_than_pivot(stack_a, pivot);
+	smaller_than_pivot = finding_smaller_than_pivot(stack_a, pivot);
+
+
 }
 stack	*finding_pivot(stack *pt_to_stack_a)
 {
@@ -37,7 +59,34 @@ stack	*finding_pivot(stack *pt_to_stack_a)
 	return (pt_to_stack_a);
 }
 
-stack	*finding_higher(stack *pt_to_stack_a)
+stack	*finding_bigger_than_pivot(stack *pt_to_stack_a, stack *pivot)
 {
+	stack	*pt_to_a_bigger_nb;
+	printf("l addresse de pt_to_stack_a = %p", pt_to_stack_a);
+	while (pt_to_stack_a->next != NULL)
+	{
+		if (pt_to_stack_a->arg > pivot->arg)
+		{
+			pt_to_a_bigger_nb = pt_to_stack_a;
+			return (pt_to_a_bigger_nb);
+		}
+		pt_to_stack_a = pt_to_stack_a->next;
+	}
+	return (pt_to_stack_a);
+}
 
+stack	*finding_smaller_than_pivot(stack *pt_to_stack_a, stack *pivot)
+{
+	stack	*pt_to_a_smaller_nb;
+
+	while (pt_to_stack_a->next != NULL)
+	{
+		if (pt_to_stack_a->arg < pivot->arg)
+		{
+			pt_to_a_smaller_nb = pt_to_stack_a;
+			return (pt_to_a_smaller_nb);
+		}
+		pt_to_stack_a = pt_to_stack_a->next;
+	}
+	return (pt_to_stack_a);
 }
