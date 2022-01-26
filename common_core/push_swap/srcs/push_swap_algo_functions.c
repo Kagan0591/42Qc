@@ -4,7 +4,7 @@ stack	*swap_stkvalue_a(stack *p_stk)
 {
 	stack	*tmp;
 
-	ft_putstr("sa");
+	ft_putstr("sa\n");
 	if (ft_stksize(p_stk) >= 2)
 	{
 		tmp = p_stk;
@@ -19,7 +19,7 @@ stack	*swap_stkvalue_b(stack *p_stk)
 {
 	stack	*tmp;
 
-	ft_putstr("sb");
+	ft_putstr("sb\n");
 	if (ft_stksize(p_stk) >= 2)
 	{
 		tmp = p_stk;
@@ -35,7 +35,7 @@ void	push_to_a(stack **origin, stack **dest)
 	stack	*tmp_orig;
 	stack	*tmp_dest;
 
-	ft_putstr("pa");
+	ft_putstr("pa\n");
 	if (origin && dest)
 	{
 		tmp_orig = (*origin)->next;
@@ -51,7 +51,7 @@ void	push_to_b(stack **origin, stack **dest)
 	stack	*tmp_orig;
 	stack	*tmp_dest;
 
-	ft_putstr("pb");
+	ft_putstr("pb\n");
 	if (origin && dest)
 	{
 		tmp_orig = (*origin)->next;
@@ -62,12 +62,12 @@ void	push_to_b(stack **origin, stack **dest)
 	}
 }
 
-stack	*rotate_a(stack *p_stk)
+stack	*rotate_a(stack *p_stk) // Put the last node to the top
 {
 	stack	*tmp;
 	stack	*tmp_top;
 
-	ft_putstr("ra");
+	ft_putstr("ra\n");
 	if (ft_stksize(p_stk) >= 2)
 	{
 		tmp_top = p_stk->next;
@@ -82,12 +82,12 @@ stack	*rotate_a(stack *p_stk)
 		return (p_stk);
 }
 
-stack	*rotate_b(stack *p_stk)
+stack	*rotate_b(stack *p_stk) // Put the last node to the top
 {
 	stack	*tmp;
 	stack	*tmp_top;
 
-	ft_putstr("rb");
+	ft_putstr("rb\n");
 	if (ft_stksize(p_stk) >= 2)
 	{
 		tmp_top = p_stk->next;
@@ -102,13 +102,13 @@ stack	*rotate_b(stack *p_stk)
 		return (p_stk);
 }
 
-stack	*reverse_rotate_a(stack *p_stk)
+stack	*reverse_rotate_a(stack *p_stk) // Put the first node to the buttom
 {
 	stack		*tmp;
 	stack		*top_tmp;
 	size_t		pos;
 
-	ft_putstr("rra");
+	ft_putstr("rra\n");
 	if (ft_stksize(p_stk) >= 2)
 	{
 		pos = ft_stksize(p_stk);
@@ -127,13 +127,13 @@ stack	*reverse_rotate_a(stack *p_stk)
 		return (p_stk);
 }
 
-stack	*reverse_rotate_b(stack *p_stk)
+stack	*reverse_rotate_b(stack *p_stk) // Put the first node to the buttom
 {
 	stack		*tmp;
 	stack		*top_tmp;
 	size_t		pos;
 
-	ft_putstr("rrb");
+	ft_putstr("rrb\n");
 	if (ft_stksize(p_stk) >= 2)
 	{
 		pos = ft_stksize(p_stk);

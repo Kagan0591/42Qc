@@ -35,14 +35,15 @@ stack	*rotate_b(stack *p_stk);
 stack	*reverse_rotate_a(stack *p_stk);
 stack	*reverse_rotate_b(stack *p_stk);
 
-// Algo binary_sort
-
+// Algo quicksort
+void	quicksort(stack *stack_a);
+int	finding_pivot(stack **pt_to_stack_a);
 
 // Algo devide and conquer 1
-// void	sort_algo(**ptr_stack_a, **ptr_stk_b);
-// void	split_recursive(stack **stack_a, stack **stack_b);
-// void	split_stack(stack **ptr_stack_a, stack **ptr_stack_b);
-// int		search_and_return_the_smaller_nb_into_a(stack *stack_a);
+void	sort_algo(stack **ptr_stack_a, stack **ptr_stk_b);
+void	split_recursive(stack **stack_a, stack **stack_b);
+void	split_stack(stack **ptr_stack_a, stack **ptr_stack_b);
+int		search_and_return_the_smaller_nb_into_a(stack *stack_a);
 
 // Stack functions
 stack			*ft_stknew(int nbr);

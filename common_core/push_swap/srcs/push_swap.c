@@ -54,8 +54,8 @@ int	main (int argc, char **argv)
 	if (check_for_error(argc - 1, argv) == 0)
 		return (0);
 	stk_a = push_argv_to_stk(argc - 1, argv);
-	//sort_algo(stk_a, stk_b);
-	ft_print_stack(stk_a);
+	quicksort(stk_a);
+
 	return (1);
 }
 
@@ -79,6 +79,8 @@ int	check_for_error(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (0);
 	}
+	if (argc == 0)
+		return (0);
 	return (1);
 }
 
@@ -114,18 +116,8 @@ stack	*push_argv_to_stk(int argc, char **argv)
 {
 	stack	*stack_a;
 
-	ft_putstr("\nTEST1\n");
-	ft_putnbr(argc);
-	ft_putstr("\n");
-	ft_putstr(argv[argc]);
-	ft_putstr("\nTEST1\n");
 	stack_a = ft_stknew(atoi(argv[argc]));
 	argc = (argc -1);
-	ft_putstr("\nTEST2\n");
-	ft_putnbr(argc);
-	ft_putstr("\n");
-	ft_putstr(argv[argc]);
-	ft_putstr("\nTEST2\n");
 	while (argc >= 1)
 	{
 		stack_a = ft_stkadd(stack_a, atoi(argv[argc]));
