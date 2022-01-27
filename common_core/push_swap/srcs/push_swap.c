@@ -56,7 +56,7 @@ int	main (int argc, char **argv)
 		return (0);
 	stk_a = push_argv_to_stk(argc - 1, argv);
 	stack_index = indexing_the_stack(stk_a);
-	ft_putstr("test1");
+	ft_putstr("\n\nEND OF PROGRAM\n");
 
 	//quicksort(stk_a);
 	return (1);
@@ -66,6 +66,7 @@ int	*indexing_the_stack(stack *stack_a)
 {
 	int		count;
 	stack	*start_of_stack_a;
+	stack	*stack_a_tmp;
 	int		*indexed_stack;
 	int		i;
 
@@ -75,27 +76,22 @@ int	*indexing_the_stack(stack *stack_a)
 	while (stack_a->next != NULL)
 	{
 		count = 0;
-		while (start_of_stack_a->next != NULL)
+		stack_a_tmp = start_of_stack_a;
+		while (stack_a_tmp != NULL)
 		{
-			ft_putnbr(count);
-			ft_putstr("\n\nDelemiter\n\n");
-			ft_putnbr(stack_a->arg);
-			ft_putstr("\n\nDelemiter\n\n");
-			ft_putnbr(stack_a->next->arg);
-			ft_putstr("\n\nDelemiter\n\n");
-			if (stack_a->arg > start_of_stack_a->arg)
-			{
-				ft_putstr("\n\nPAssage dans la condition\n\n");
+			if (stack_a->arg > stack_a_tmp->arg)
 				count++;
-			}
-			start_of_stack_a = start_of_stack_a->next;
+			stack_a_tmp = stack_a_tmp->next;
 		}
-		ft_putstr("le count indexer: ");
-		ft_putnbr(count);
 		stack_a = stack_a->next;
 		indexed_stack[i] = count;
-		//ft_putnbr(count);
-		//ft_putnbr(indexed_stack[i]);
+		i++;
+		//ft_putnbr(i);
+	}
+	i = 0;
+	while (i <= 3)
+	{
+		ft_putnbr(indexed_stack[i]);
 		i++;
 	}
 	return (indexed_stack);

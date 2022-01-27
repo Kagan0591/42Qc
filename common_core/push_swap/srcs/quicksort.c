@@ -22,8 +22,8 @@
 void	quicksort(stack *stack_a)
 {
 	stack	*pt_to_pivot;
-	stack	*bigger_than_pivot;
-	stack	*smaller_than_pivot;
+	// stack	*bigger_than_pivot;
+	// stack	*smaller_than_pivot;
 
 	pt_to_pivot = finding_pivot(stack_a);
 	swap_the_smaller_and_bigger(stack_a, pt_to_pivot);

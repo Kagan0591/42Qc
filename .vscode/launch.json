@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "/Users/tchalifo/Documents/42Qc/cursus_projets/libft/a.out",
+            "program": "${workspaceFolder}/test",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

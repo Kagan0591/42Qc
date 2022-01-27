@@ -31,7 +31,7 @@ VPATH 		= $(SRCS_DIR) $(B_SRCS_DIR)
 
 ### Compilations et archivage ###
 CC 			= gcc
-CFLAGS 		= -Wall -Werror -Wextra
+CFLAGS 		= -Wall -Werror -Wextra -g
 AR 			= ar -cr
 
 ### Autres Fonctions ###
@@ -71,13 +71,13 @@ bonus: ${NAME} ${BONUS_OBJS}
 	@echo "${BONUS_OBJS} ${GREEN} ${BOLD}\n\nObjects files And bonus objects files are added to the archive libftprintf.a correctly\n${END}"
 
 exec:
-	${CC} ${FLAGS} -I${INCLUDE_DIR} -o test ${SRCS}
+	${CC} ${CFLAGS} -I${INCLUDE_DIR} -o test ${SRCS}
 
 obj:
 	@mkdir -p $(OBJS_DIR)
 
 test: norm
-	${CC} ${FLAGS} -Og -I${INCLUDE_DIR} -o test ${SRCS}
+	${CC} ${CFLAGS} -Og -I${INCLUDE_DIR} -o test ${SRCS}
 	valgrind ./test
 
 norm:

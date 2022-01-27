@@ -84,3 +84,27 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
+
+
+
+int	decimal_to_base(int base, int nb)
+{
+	int	num;
+	int	quotient;
+	int	remainder;
+	int	i;
+
+	num = 0;
+	quotient = nb;
+	remainder = 0;
+	i = 0;
+
+	while (quotient != 0)
+	{
+		remainder = (quotient % base);
+		quotient = (quotient / base);
+		num = ((remainder * pow(10, i)) + num);
+		i++;
+	}
+}
