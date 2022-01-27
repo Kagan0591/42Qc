@@ -20,12 +20,12 @@ typedef struct stack
 }stack;
 
 // Prog functions
-int	check_for_error(int argc, char **argv);
+int		check_for_error(int argc, char **argv);
 boolean	checkif_isdigit(char **argv);
 boolean	checkif_isint(char **argv);
 boolean	checkif_repeated_number(char **argv);
 stack	*push_argv_to_stk(int argc, char **argv);
-int		indexing_the_stack(stack *stack_a);
+int		*indexing_the_stack(stack *stack_a);
 
 // Algo functions
 stack	*swap_stkvalue_a(stack *p_stk);
@@ -54,7 +54,7 @@ int		search_and_return_the_smaller_nb_into_a(stack *stack_a);
 stack			*ft_stknew(int nbr);
 stack			*ft_stkadd(stack *p_stk, int nbr);
 boolean			ft_stk_isempty(stack *p_stk);
-size_t			ft_stksize(stack *p_stk);
+int			ft_stksize(stack *p_stk);
 void			ft_print_stack(stack *p_stk);
 stack			*ft_stkdelone(stack *p_stk);
 stack			*ft_stkclear(stack *p_stk);

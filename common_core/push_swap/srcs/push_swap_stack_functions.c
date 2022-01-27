@@ -35,9 +35,9 @@ boolean 	ft_stk_isempty(stack *p_stk)
 	return (false);
 }
 
-size_t	ft_stksize(stack *p_stk)
+int	ft_stksize(stack *p_stk)
 {
-	size_t	count;
+	int	count;
 
 	count = 0;
 	while (p_stk)

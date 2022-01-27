@@ -42,11 +42,9 @@ int	main (int argc, char **argv)
 {
 	stack	*stk_a;
 	stack	*stk_b;
-	int		*indexed_stack;
-	int		i;
+	int		*stack_index;
 
 	stk_b = NULL;
-	i = 0;
 
 	// ------------ Print the nbr of arg(s)
 	// ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
@@ -57,23 +55,50 @@ int	main (int argc, char **argv)
 	if (check_for_error(argc - 1, argv) == 0)
 		return (0);
 	stk_a = push_argv_to_stk(argc - 1, argv);
+	stack_index = indexing_the_stack(stk_a);
 	ft_putstr("test1");
-	while (stk_a->next != NULL)
-	{
-		indexed_stack[i] = indexing_the_stack(stk_a);
-		i++;
-		stk_a = stk_a->next;
-	}
-	i = 0;
-	while (i < argc)
-	{
-		ft_putnbr(indexed_stack[i]);
-		i++;
-	}
 
 	//quicksort(stk_a);
-
 	return (1);
+}
+
+int	*indexing_the_stack(stack *stack_a)
+{
+	int		count;
+	stack	*start_of_stack_a;
+	int		*indexed_stack;
+	int		i;
+
+	indexed_stack = malloc(sizeof(int) * ft_stksize(stack_a));
+	i = 0;
+	start_of_stack_a = stack_a;
+	while (stack_a->next != NULL)
+	{
+		count = 0;
+		while (start_of_stack_a->next != NULL)
+		{
+			ft_putnbr(count);
+			ft_putstr("\n\nDelemiter\n\n");
+			ft_putnbr(stack_a->arg);
+			ft_putstr("\n\nDelemiter\n\n");
+			ft_putnbr(stack_a->next->arg);
+			ft_putstr("\n\nDelemiter\n\n");
+			if (stack_a->arg > start_of_stack_a->arg)
+			{
+				ft_putstr("\n\nPAssage dans la condition\n\n");
+				count++;
+			}
+			start_of_stack_a = start_of_stack_a->next;
+		}
+		ft_putstr("le count indexer: ");
+		ft_putnbr(count);
+		stack_a = stack_a->next;
+		indexed_stack[i] = count;
+		//ft_putnbr(count);
+		//ft_putnbr(indexed_stack[i]);
+		i++;
+	}
+	return (indexed_stack);
 }
 
 int	check_for_error(int argc, char **argv)
@@ -101,32 +126,6 @@ int	check_for_error(int argc, char **argv)
 	return (1);
 }
 
-int	indexing_the_stack(stack *stack_a)
-{
-	int		count;
-	stack	*stk_tmp;
-
-	stack_a = stk_tmp->arg
-	count = 0;
-	//ft_print_stack(stack_a);
-	ft_putstr("\n\nLETESTEEEEEE\n\n");
-	ft_putnbr(stack_a->next->next->arg);
-	ft_putstr("\n\nLETESTEEEEEE\n\n");
-	while (stack_a->next != NULL)
-	{
-		if (stack_a->arg > stk_tmp->arg)
-		{
-			ft_putstr("\n");
-			count++;
-			ft_putnbr(count);
-			ft_putstr("\n");
-		}
-		stack_a = stack_a->next;
-	}
-	ft_putstr("\n\ntest2\n\n");
-	ft_putnbr(count);
-	return (count);
-}
 
 // stack	small_sort(stack stack_b)
 // {
