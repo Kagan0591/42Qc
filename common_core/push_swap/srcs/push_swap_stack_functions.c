@@ -18,7 +18,7 @@ node	*ft_stkadd(node *p_stk, int nbr)
 	node	*new_element;
 
 	if (!p_stk)
-		p_stk = ft_stknew(nbr);
+		return (ft_stknew(nbr));
 	new_element = malloc(sizeof(node));
 	if (new_element)
 	{

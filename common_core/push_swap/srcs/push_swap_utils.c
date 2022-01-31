@@ -106,3 +106,4 @@ int	decimal_to_base(int base, int nb)
 	}
 	return (num);
 }
+

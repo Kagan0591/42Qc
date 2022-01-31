@@ -40,25 +40,33 @@
 
 int	main (int argc, char **argv)
 {
-	(void) argc;
-	(void) argv;
-//	node	*stk_a;
+	// (void) argc;
+	// (void) argv;
+	node	*stk_a;
 //	stack	*stk_b;
-//	int		*stack_index;
-	int	nbr;
+	node	*stack_index;
 //	stk_b = NULL;
+	int		i;
 
 	// ------------ Print the nbr of arg(s)
 	// ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
-//	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
-//	ft_putnbr(argc);
-//	ft_putstr("\n\n");
+	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
+	ft_putnbr(argc);
+	ft_putstr("\n\n");
 	// ------------ Add the data from argv to stk_a
-//	if (check_for_error(argc - 1, argv) == 0)
-//		return (0);
-//	stk_a = push_argv_to_stk(argc - 1, argv);
-	nbr = decimal_to_base(2, 4);
-	ft_putnbr(nbr);
+	if (check_for_error(argc - 1, argv) == 0)
+		return (0);
+	stk_a = push_argv_to_stk(argc - 1, argv);
+	ft_print_stack(stk_a);
+	ft_putstr("\n");
+	stack_index = indexing_stack_to_stack(stk_a);
+	ft_print_stack(stack_index);
+	i = 0;
+	// while (i < 4)
+	// {
+	// 	ft_putnbr(stack_index[i]);
+	// 	i++;
+	// }
 //	stack_index = indexing_the_stack(stk_a);
 
 	ft_putstr("\n\nEND OF PROGRAM\n");
@@ -67,18 +75,18 @@ int	main (int argc, char **argv)
 	return (1);
 }
 
-int	*indexing_the_stack(node *stack_a)
+int	*indexing_stack_to_tab(node *stack_a)
 {
 	int		count;
 	node	*start_of_stack_a;
 	node	*stack_a_tmp;
-	int		*indexed_stack;
+	int		*indexed_tab;
 	int		i;
 
-	indexed_stack = malloc(sizeof(int) * ft_stksize(stack_a));
+	indexed_tab = malloc(sizeof(int) * ft_stksize(stack_a));
 	i = 0;
 	start_of_stack_a = stack_a;
-	while (stack_a->next != NULL)
+	while (stack_a != NULL)
 	{
 		count = 0;
 		stack_a_tmp = start_of_stack_a;
@@ -89,17 +97,36 @@ int	*indexing_the_stack(node *stack_a)
 			stack_a_tmp = stack_a_tmp->next;
 		}
 		stack_a = stack_a->next;
-		indexed_stack[i] = count;
+		indexed_tab[i] = count;
+		ft_putnbr(indexed_tab[i]);
 		i++;
-		//ft_putnbr(i);
 	}
-	i = 0;
-	while (i <= 3)
+	return (indexed_tab);
+}
+
+node	*indexing_stack_to_stack(node *stack_a)
+{
+	int count;
+	node	*start_of_stack_a;
+	node	*stack_a_tmp;
+	node	*indexed_stack;
+
+	start_of_stack_a = stack_a;
+	while (stack_a != NULL)
 	{
-		ft_putnbr(indexed_stack[i]);
-		i++;
+		count = 0;
+		stack_a_tmp = start_of_stack_a;
+		while (stack_a_tmp != NULL)
+		{
+			if (stack_a->arg > stack_a_tmp->arg)
+				count++;
+			stack_a_tmp = stack_a_tmp->next;
+		}
+		stack_a = stack_a->next;
+		indexed_stack = ft_stkadd(indexed_stack, count);
 	}
 	return (indexed_stack);
+
 }
 
 int	check_for_error(int argc, char **argv)

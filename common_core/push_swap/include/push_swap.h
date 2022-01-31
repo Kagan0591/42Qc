@@ -26,7 +26,8 @@ boolean	checkif_isdigit(char **argv);
 boolean	checkif_isint(char **argv);
 boolean	checkif_repeated_number(char **argv);
 node	*push_argv_to_stk(int argc, char **argv);
-int		*indexing_the_stack(node *stack_a);
+int		*indexing_stack_to_tab(node *stack_a);
+node	*indexing_stack_to_stack(node *stack_a);
 int		decimal_to_base(int base, int nb);
 
 // Algo functions
