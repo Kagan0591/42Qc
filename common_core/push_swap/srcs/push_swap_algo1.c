@@ -81,10 +81,10 @@ int	search_and_return_the_smaller_nb_into_a(stack *stack_a)
 }
 */
 
-void	sort_algo(stack **ptr_stack_a, stack **ptr_stk_b)
+void	sort_algo(node **ptr_stack_a, node **ptr_stk_b)
 {
-	stack	*stk_a_tmp;
-	stack	*stk_a_cpy;
+	node	*stk_a_tmp;
+	node	*stk_a_cpy;
 
 	stk_a_tmp = (*ptr_stack_a)->next;
 	stk_a_cpy = *ptr_stack_a;
@@ -104,7 +104,7 @@ void	sort_algo(stack **ptr_stack_a, stack **ptr_stk_b)
 // La fonction de deconstruction et la recursive
 
 
-void	split_recursive(stack **stack_a, stack **stack_b)
+void	split_recursive(node **stack_a, node **stack_b)
 {
 	split_stack(stack_a, stack_b);
 	ft_putstr("\nprint stack a apres split\n");
@@ -137,7 +137,7 @@ void	split_recursive(stack **stack_a, stack **stack_b)
 	}
 }
 
-void	split_stack(stack **ptr_stack_a, stack **ptr_stack_b)
+void	split_stack(node **ptr_stack_a, node **ptr_stack_b)
 {
 	size_t	count;
 

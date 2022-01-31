@@ -14,55 +14,54 @@ typedef enum
 	true
 }boolean;
 
-typedef struct stack
+typedef struct node
 {
 	int				arg;
-	struct stack	*next;
-}stack;
+	struct node	*next;
+}node;
 
 // Prog functions
 int		check_for_error(int argc, char **argv);
 boolean	checkif_isdigit(char **argv);
 boolean	checkif_isint(char **argv);
 boolean	checkif_repeated_number(char **argv);
-stack	*push_argv_to_stk(int argc, char **argv);
-int		*indexing_the_stack(stack *stack_a);
+node	*push_argv_to_stk(int argc, char **argv);
+int		*indexing_the_stack(node *stack_a);
 
 // Algo functions
-stack	*swap_stkvalue_a(stack *p_stk);
-stack	*swap_stkvalue_b(stack *p_stk);
-void	push_to_a(stack **origin, stack **dest);
-void	push_to_b(stack **origin, stack **dest);
-stack	*rotate_a(stack *p_stk);
-stack	*rotate_b(stack *p_stk);
-stack	*reverse_rotate_a(stack *p_stk);
-stack	*reverse_rotate_b(stack *p_stk);
+node	*swap_stkvalue_a(node *p_stk);
+node	*swap_stkvalue_b(node *p_stk);
+void	push_to_a(node **origin, node **dest);
+void	push_to_b(node **origin, node **dest);
+node	*rotate_a(node *p_stk);
+node	*rotate_b(node *p_stk);
+node	*reverse_rotate_a(node *p_stk);
+node	*reverse_rotate_b(node *p_stk);
 
 // Algo radix sort
-void	counting_sort_0to9(stack *unsort_nbr);
-int	*counting_sort_0to9_tab(int *unsort_nbr, int size);
+int	*counting_sort_0to9(node *unsort_nbr);
 
 // Algo quicksort
-void	quicksort(stack *stack_a);
-stack	*finding_pivot(stack *pt_to_stack_a);
-void	swap_the_smaller_and_bigger(stack *stack_a, stack *pivot);
-stack	*finding_bigger_than_pivot(stack *pt_to_stack_a, stack *pivot);
-stack	*finding_smaller_than_pivot(stack *pt_to_stack_a, stack *pivot);
+void	quicksort(node *stack_a);
+node	*finding_pivot(node *pt_to_stack_a);
+void	swap_the_smaller_and_bigger(node *stack_a, node *pivot);
+node	*finding_bigger_than_pivot(node *pt_to_stack_a, node *pivot);
+node	*finding_smaller_than_pivot(node *pt_to_stack_a, node *pivot);
 
 // Algo devide and conquer 1
-void	sort_algo(stack **ptr_stack_a, stack **ptr_stk_b);
-void	split_recursive(stack **stack_a, stack **stack_b);
-void	split_stack(stack **ptr_stack_a, stack **ptr_stack_b);
-int		search_and_return_the_smaller_nb_into_a(stack *stack_a);
+void	sort_algo(node **ptr_stack_a, node **ptr_stk_b);
+void	split_recursive(node **stack_a, node **stack_b);
+void	split_stack(node **ptr_stack_a, node **ptr_stack_b);
+int		search_and_return_the_smaller_nb_into_a(node *stack_a);
 
 // Stack functions
-stack			*ft_stknew(int nbr);
-stack			*ft_stkadd(stack *p_stk, int nbr);
-boolean			ft_stk_isempty(stack *p_stk);
-int			ft_stksize(stack *p_stk);
-void			ft_print_stack(stack *p_stk);
-stack			*ft_stkdelone(stack *p_stk);
-stack			*ft_stkclear(stack *p_stk);
+node			*ft_stknew(int nbr);
+node			*ft_stkadd(node *p_stk, int nbr);
+boolean			ft_stk_isempty(node *p_stk);
+int			ft_stksize(node *p_stk);
+void			ft_print_stack(node *p_stk);
+node			*ft_stkdelone(node *p_stk);
+node			*ft_stkclear(node *p_stk);
 
 // Utils
 int				ft_atoi(const char *str);

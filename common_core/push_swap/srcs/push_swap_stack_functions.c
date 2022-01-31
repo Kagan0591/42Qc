@@ -1,10 +1,10 @@
 #include "push_swap.h"
 
-stack	*ft_stknew(int nbr)
+node	*ft_stknew(int nbr)
 {
-	stack	*new_element;
+	node	*new_element;
 
-	new_element = malloc(sizeof(stack));
+	new_element = malloc(sizeof(node));
 	if (new_element)
 	{
 		new_element->arg = nbr;
@@ -13,13 +13,13 @@ stack	*ft_stknew(int nbr)
 	return (new_element);
 }
 
-stack	*ft_stkadd(stack *p_stk, int nbr)
+node	*ft_stkadd(node *p_stk, int nbr)
 {
-	stack	*new_element;
+	node	*new_element;
 
 	if (!p_stk)
 		p_stk = ft_stknew(nbr);
-	new_element = malloc(sizeof(stack));
+	new_element = malloc(sizeof(node));
 	if (new_element)
 	{
 		new_element->arg = nbr;
@@ -28,14 +28,14 @@ stack	*ft_stkadd(stack *p_stk, int nbr)
 	return (new_element);
 }
 
-boolean 	ft_stk_isempty(stack *p_stk)
+boolean 	ft_stk_isempty(node *p_stk)
 {
 	if(p_stk == NULL)
 		return (true);
 	return (false);
 }
 
-int	ft_stksize(stack *p_stk)
+int	ft_stksize(node *p_stk)
 {
 	int	count;
 
@@ -48,7 +48,7 @@ int	ft_stksize(stack *p_stk)
 	return (count);
 }
 
-void	ft_print_stack(stack *p_stk)
+void	ft_print_stack(node *p_stk)
 {
 	if (p_stk != NULL)
 	{
@@ -57,9 +57,9 @@ void	ft_print_stack(stack *p_stk)
 	}
 }
 
-stack	*ft_stkdelone(stack *p_stk)
+node	*ft_stkdelone(node *p_stk)
 {
-	stack	*tmp;
+	node	*tmp;
 	if (p_stk)
 	{
 		tmp = p_stk->next;
@@ -69,9 +69,9 @@ stack	*ft_stkdelone(stack *p_stk)
 	return (NULL);
 }
 
-stack	*ft_stkclear(stack *p_stk)
+node	*ft_stkclear(node *p_stk)
 {
-	stack	*tmp;
+	node	*tmp;
 
 	if(p_stk)
 	{
@@ -82,3 +82,5 @@ stack	*ft_stkclear(stack *p_stk)
 	}
 	return (p_stk);
 }
+
+//node	ft_stkclear_recursive(node stk)

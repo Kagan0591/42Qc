@@ -19,9 +19,9 @@
 #include "push_swap.h"
 
 
-void	quicksort(stack *stack_a)
+void	quicksort(node *stack_a)
 {
-	stack	*pt_to_pivot;
+	node	*pt_to_pivot;
 	// stack	*bigger_than_pivot;
 	// stack	*smaller_than_pivot;
 
@@ -40,17 +40,17 @@ void	quicksort(stack *stack_a)
 	// ft_putnbr(smaller_than_pivot->arg);
 
 }
-void	swap_the_smaller_and_bigger(stack *stack_a, stack *pivot)
+void	swap_the_smaller_and_bigger(node *stack_a, node *pivot)
 {
-	stack	*bigger_than_pivot;
-	stack	*smaller_than_pivot;
+	node	*bigger_than_pivot;
+	node	*smaller_than_pivot;
 
 	bigger_than_pivot = finding_bigger_than_pivot(stack_a, pivot);
 	smaller_than_pivot = finding_smaller_than_pivot(stack_a, pivot);
 
 
 }
-stack	*finding_pivot(stack *pt_to_stack_a)
+node	*finding_pivot(node *pt_to_stack_a)
 {
 	while (pt_to_stack_a->next != NULL)
 	{
@@ -59,9 +59,9 @@ stack	*finding_pivot(stack *pt_to_stack_a)
 	return (pt_to_stack_a);
 }
 
-stack	*finding_bigger_than_pivot(stack *pt_to_stack_a, stack *pivot)
+node	*finding_bigger_than_pivot(node *pt_to_stack_a, node *pivot)
 {
-	stack	*pt_to_a_bigger_nb;
+	node	*pt_to_a_bigger_nb;
 	printf("l addresse de pt_to_stack_a = %p", pt_to_stack_a);
 	while (pt_to_stack_a->next != NULL)
 	{
@@ -75,9 +75,9 @@ stack	*finding_bigger_than_pivot(stack *pt_to_stack_a, stack *pivot)
 	return (pt_to_stack_a);
 }
 
-stack	*finding_smaller_than_pivot(stack *pt_to_stack_a, stack *pivot)
+node	*finding_smaller_than_pivot(node *pt_to_stack_a, node *pivot)
 {
-	stack	*pt_to_a_smaller_nb;
+	node	*pt_to_a_smaller_nb;
 
 	while (pt_to_stack_a->next != NULL)
 	{

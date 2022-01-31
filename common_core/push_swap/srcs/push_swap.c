@@ -40,10 +40,11 @@
 
 int	main (int argc, char **argv)
 {
-	stack	*stk_a;
+	node	*stk_a;
 //	stack	*stk_b;
 //	int		*stack_index;
-
+	int	*stk_a_sorted;
+	int i;
 //	stk_b = NULL;
 
 	// ------------ Print the nbr of arg(s)
@@ -52,22 +53,30 @@ int	main (int argc, char **argv)
 	ft_putnbr(argc);
 	ft_putstr("\n\n");
 	// ------------ Add the data from argv to stk_a
-//	if (check_for_error(argc - 1, argv) == 0)
-//		return (0);
-//	stk_a = push_argv_to_stk(argc - 1, argv);
-	counting_sort_0to9_tab(test, 5);
+	if (check_for_error(argc - 1, argv) == 0)
+		return (0);
+	stk_a = push_argv_to_stk(argc - 1, argv);
+	stk_a_sorted = counting_sort_0to9(stk_a);
+	i = 0;
+	ft_putnbr(i);
+	while (i < 5)
+	{
+		ft_putnbr(stk_a_sorted[i]);
+		i++;
+	}
 //	stack_index = indexing_the_stack(stk_a);
+
 	ft_putstr("\n\nEND OF PROGRAM\n");
 
 	//quicksort(stk_a);
 	return (1);
 }
 
-int	*indexing_the_stack(stack *stack_a)
+int	*indexing_the_stack(node *stack_a)
 {
 	int		count;
-	stack	*start_of_stack_a;
-	stack	*stack_a_tmp;
+	node	*start_of_stack_a;
+	node	*stack_a_tmp;
 	int		*indexed_stack;
 	int		i;
 
@@ -152,9 +161,9 @@ int	check_for_error(int argc, char **argv)
 // 	return (stack_a);
 // }
 
-stack	*push_argv_to_stk(int argc, char **argv)
+node	*push_argv_to_stk(int argc, char **argv)
 {
-	stack	*stack_a;
+	node	*stack_a;
 
 	stack_a = ft_stknew(atoi(argv[argc]));
 	argc = (argc -1);
