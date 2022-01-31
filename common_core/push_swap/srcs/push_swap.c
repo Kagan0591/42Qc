@@ -40,30 +40,25 @@
 
 int	main (int argc, char **argv)
 {
-	node	*stk_a;
+	(void) argc;
+	(void) argv;
+//	node	*stk_a;
 //	stack	*stk_b;
 //	int		*stack_index;
-	int	*stk_a_sorted;
-	int i;
+	int	nbr;
 //	stk_b = NULL;
 
 	// ------------ Print the nbr of arg(s)
 	// ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
-	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
-	ft_putnbr(argc);
-	ft_putstr("\n\n");
+//	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
+//	ft_putnbr(argc);
+//	ft_putstr("\n\n");
 	// ------------ Add the data from argv to stk_a
-	if (check_for_error(argc - 1, argv) == 0)
-		return (0);
-	stk_a = push_argv_to_stk(argc - 1, argv);
-	stk_a_sorted = counting_sort_0to9(stk_a);
-	i = 0;
-	ft_putnbr(i);
-	while (i < 5)
-	{
-		ft_putnbr(stk_a_sorted[i]);
-		i++;
-	}
+//	if (check_for_error(argc - 1, argv) == 0)
+//		return (0);
+//	stk_a = push_argv_to_stk(argc - 1, argv);
+	nbr = decimal_to_base(2, 4);
+	ft_putnbr(nbr);
 //	stack_index = indexing_the_stack(stk_a);
 
 	ft_putstr("\n\nEND OF PROGRAM\n");
