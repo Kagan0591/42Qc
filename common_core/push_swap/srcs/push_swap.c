@@ -41,10 +41,10 @@
 int	main (int argc, char **argv)
 {
 	stack	*stk_a;
-	stack	*stk_b;
-	int		*stack_index;
+//	stack	*stk_b;
+//	int		*stack_index;
 
-	stk_b = NULL;
+//	stk_b = NULL;
 
 	// ------------ Print the nbr of arg(s)
 	// ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
@@ -52,10 +52,11 @@ int	main (int argc, char **argv)
 	ft_putnbr(argc);
 	ft_putstr("\n\n");
 	// ------------ Add the data from argv to stk_a
-	if (check_for_error(argc - 1, argv) == 0)
-		return (0);
-	stk_a = push_argv_to_stk(argc - 1, argv);
-	stack_index = indexing_the_stack(stk_a);
+//	if (check_for_error(argc - 1, argv) == 0)
+//		return (0);
+//	stk_a = push_argv_to_stk(argc - 1, argv);
+	counting_sort_0to9_tab(test, 5);
+//	stack_index = indexing_the_stack(stk_a);
 	ft_putstr("\n\nEND OF PROGRAM\n");
 
 	//quicksort(stk_a);
@@ -136,7 +137,7 @@ int	check_for_error(int argc, char **argv)
 /* Une fonction pour placer chaques arguments dans une structure
  * en pile */
 
-// stack	*push_argv_to_stk(int argc, char **argv)
+// stack	*push_argv_to_stk(char **argv)
 // {
 // 	stack	*stack_a;
 // 	int		i;

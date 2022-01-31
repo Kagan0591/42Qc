@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
+#include <math.h>
 
 typedef enum
 {
@@ -36,6 +37,10 @@ stack	*rotate_a(stack *p_stk);
 stack	*rotate_b(stack *p_stk);
 stack	*reverse_rotate_a(stack *p_stk);
 stack	*reverse_rotate_b(stack *p_stk);
+
+// Algo radix sort
+void	counting_sort_0to9(stack *unsort_nbr);
+int	*counting_sort_0to9_tab(int *unsort_nbr, int size);
 
 // Algo quicksort
 void	quicksort(stack *stack_a);
