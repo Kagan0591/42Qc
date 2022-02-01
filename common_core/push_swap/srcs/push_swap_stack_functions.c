@@ -16,7 +16,6 @@ node	*ft_stknew(int nbr)
 node	*ft_stkadd(node *p_stk, int nbr)
 {
 	node	*new_element;
-
 	if (!p_stk)
 		return (ft_stknew(nbr));
 	new_element = malloc(sizeof(node));
@@ -129,8 +128,6 @@ node	*indexing_stack_to_stack(node *stack_a)
 		stack_a_tmp = start_of_stack_a;
 		while (stack_a_tmp != NULL)
 		{
-			//ft_putnbr(stack_a->arg);
-			ft_putnbr(count);
 			if (stack_a->arg > stack_a_tmp->arg)
 				count++;
 			stack_a_tmp = stack_a_tmp->next;

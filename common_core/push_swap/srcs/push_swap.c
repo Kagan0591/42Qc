@@ -44,25 +44,34 @@ int	main (int argc, char **argv)
 	// (void) argv;
 	node	*stk_a;
 //	stack	*stk_b;
-//	node	*stack_index;
+	node	*stack_index;
 //	stk_b = NULL;
-
+	// int i;
 // ------------ Print the nbr of arg(s)
 // ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
 	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
 	ft_putnbr(argc);
 	ft_putstr("\n\n");
+	// i = 1;
+	// while (i < argc)
+	// {
+	// 	ft_putstr(argv[i]);
+	// 	i++;
+	// }
+	// ft_putstr("\n\n");
+
 // ------------ Add the data from argv to stk_a
 	if (check_for_error(argc - 1, argv) == 0)
 		return (0);
-	stk_a = push_argv_to_stk(argc - 1, argv);
+	stk_a = push_argv_to_stk(argc, argv);
+	ft_putstr("\n");
 	ft_print_stack(stk_a);
 	ft_putstr("\n");
-//	stack_index = indexing_stack_to_stack(stk_a);
+	stack_index = indexing_stack_to_stack(stk_a);
 	indexing_stack_to_stack(stk_a);
-	ft_putstr("TEST");
-	//ft_print_stack(stack_index);
-	ft_putstr("\n\nEND OF PROGRAM\n");
+	// ft_putstr("TEST");
+	// ft_print_stack(stack_index);
+	// ft_putstr("\n\nEND OF PROGRAM\n");
 
 	return (1);
 }
@@ -109,15 +118,14 @@ int	check_for_error(int argc, char **argv)
 node	*push_argv_to_stk(int argc, char **argv)
 {
 	node	*stack_a;
-	int		i;
 
-	argc = (argc -1);
+	argc = (argc - 1);
 	stack_a = ft_stknew(atoi(argv[argc]));
-	i = 1;
-	while (i < argc)
+	argc--;
+	while (argc > 0)
 	{
-		stack_a = ft_stkadd(stack_a, atoi(argv[i]));
-		i++;
+		stack_a = ft_stkadd(stack_a, atoi(argv[argc]));
+		argc--;
 	}
 	return (stack_a);
 }
