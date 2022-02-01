@@ -11,9 +11,9 @@
 
 #include "algo.h"
 // -----***VERSION 1***-----
-int	*counting_sort_0to9_stk(s_stack *unsort_nbr)
+int	*counting_sort_0to9_stk(node *unsort_nbr)
 {
-	s_stack	*pt_beginstk_of_unsort_nbr;
+	node	*pt_beginstk_of_unsort_nbr;
 	int	counting_tab[9]; // This tab have 10 slots, one for each possible number (0 to 9).
 	int	*sorted_nbr;
 	int	i;
@@ -107,7 +107,7 @@ int	*counting_sort_0to9_tab(int *unsort_nbr, int size)
 // -----***MAIN_TO_TEST***-----
 int	main(void)
 {
-	s_stack	*stk;
+	node	*stk;
 	int	tab[5];
 	int	*stk_a_sort;
 	int	*tab_a_sort;
