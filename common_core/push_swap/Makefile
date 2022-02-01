@@ -11,7 +11,7 @@ SRCS_FILES 		=	push_swap.c \
 					push_swap_stack_functions.c \
 					push_swap_algo_functions.c \
 					push_swap_algo1.c \
-					radix_sort.c \
+					#radix_sort.c \
 					#quicksort.c \
 
 #B_SRCS_FILES	= 	 \
@@ -72,7 +72,7 @@ bonus: ${NAME} ${BONUS_OBJS}
 	@echo "${BONUS_OBJS} ${GREEN} ${BOLD}\n\nObjects files And bonus objects files are added to the archive libftprintf.a correctly\n${END}"
 
 exec:
-	${CC} ${CFLAGS} -I${INCLUDE_DIR} -o test ${SRCS}
+	${CC} ${CFLAGS} -I${INCLUDE_DIR} -o test ${SRCS} -lm
 
 obj:
 	@mkdir -p $(OBJS_DIR)

@@ -84,3 +84,59 @@ node	*ft_stkclear(node *p_stk)
 }
 
 //node	ft_stkclear_recursive(node stk)
+
+
+int	*indexing_stack_to_tab(node *stack_a)
+{
+	int		count;
+	node	*start_of_stack_a;
+	node	*stack_a_tmp;
+	int		*indexed_tab;
+	int		i;
+
+	indexed_tab = malloc(sizeof(int) * ft_stksize(stack_a));
+	i = 0;
+	start_of_stack_a = stack_a;
+	while (stack_a != NULL)
+	{
+		count = 0;
+		stack_a_tmp = start_of_stack_a;
+		while (stack_a_tmp != NULL)
+		{
+			if (stack_a->arg > stack_a_tmp->arg)
+				count++;
+			stack_a_tmp = stack_a_tmp->next;
+		}
+		stack_a = stack_a->next;
+		indexed_tab[i] = count;
+		ft_putnbr(indexed_tab[i]);
+		i++;
+	}
+	return (indexed_tab);
+}
+
+node	*indexing_stack_to_stack(node *stack_a)
+{
+	int		count;
+	node	*start_of_stack_a;
+	node	*stack_a_tmp;
+	node	*indexed_stack;
+
+	start_of_stack_a = stack_a;
+	while (stack_a != NULL)
+	{
+		count = 0;
+		stack_a_tmp = start_of_stack_a;
+		while (stack_a_tmp != NULL)
+		{
+			//ft_putnbr(stack_a->arg);
+			ft_putnbr(count);
+			if (stack_a->arg > stack_a_tmp->arg)
+				count++;
+			stack_a_tmp = stack_a_tmp->next;
+		}
+		stack_a = stack_a->next;
+		indexed_stack = ft_stkadd(indexed_stack, count);
+	}
+	return (indexed_stack);
+}

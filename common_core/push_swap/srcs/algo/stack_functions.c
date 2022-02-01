@@ -28,7 +28,7 @@ node	*ft_stkadd(node *p_stk, int nbr)
 	return (new_element);
 }
 
-boolean 	ft_stk_isempty(node *p_stk)
+boolean	ft_stk_isempty(node *p_stk)
 {
 	if(p_stk == NULL)
 		return (true);
@@ -81,4 +81,57 @@ node	*ft_stkclear(node *p_stk)
 		return (tmp);
 	}
 	return (p_stk);
+}
+
+int	*indexing_stack_to_tab(node *stack_a)
+{
+	int		count;
+	node	*start_of_stack_a;
+	node	*stack_a_tmp;
+	int		*indexed_tab;
+	int		i;
+
+	indexed_tab = malloc(sizeof(int) * ft_stksize(stack_a));
+	i = 0;
+	start_of_stack_a = stack_a;
+	while (stack_a != NULL)
+	{
+		count = 0;
+		stack_a_tmp = start_of_stack_a;
+		while (stack_a_tmp != NULL)
+		{
+			if (stack_a->arg > stack_a_tmp->arg)
+				count++;
+			stack_a_tmp = stack_a_tmp->next;
+		}
+		stack_a = stack_a->next;
+		indexed_tab[i] = count;
+		ft_putnbr(indexed_tab[i]);
+		i++;
+	}
+	return (indexed_tab);
+}
+
+node	*indexing_stack_to_stack(node *stack_a)
+{
+	int count;
+	node	*start_of_stack_a;
+	node	*stack_a_tmp;
+	node	*indexed_stack;
+
+	start_of_stack_a = stack_a;
+	while (stack_a != NULL)
+	{
+		count = 0;
+		stack_a_tmp = start_of_stack_a;
+		while (stack_a_tmp != NULL)
+		{
+			if (stack_a->arg > stack_a_tmp->arg)
+				count++;
+			stack_a_tmp = stack_a_tmp->next;
+		}
+		stack_a = stack_a->next;
+		indexed_stack = ft_stkadd(indexed_stack, count);
+	}
+	return (indexed_stack);
 }

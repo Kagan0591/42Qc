@@ -44,106 +44,44 @@ int	main (int argc, char **argv)
 	// (void) argv;
 	node	*stk_a;
 //	stack	*stk_b;
-	node	*stack_index;
+//	node	*stack_index;
 //	stk_b = NULL;
-	int		i;
 
-	// ------------ Print the nbr of arg(s)
-	// ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
+// ------------ Print the nbr of arg(s)
+// ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
 	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
 	ft_putnbr(argc);
 	ft_putstr("\n\n");
-	// ------------ Add the data from argv to stk_a
+// ------------ Add the data from argv to stk_a
 	if (check_for_error(argc - 1, argv) == 0)
 		return (0);
 	stk_a = push_argv_to_stk(argc - 1, argv);
 	ft_print_stack(stk_a);
 	ft_putstr("\n");
-	stack_index = indexing_stack_to_stack(stk_a);
-	ft_print_stack(stack_index);
-	i = 0;
-	// while (i < 4)
-	// {
-	// 	ft_putnbr(stack_index[i]);
-	// 	i++;
-	// }
-//	stack_index = indexing_the_stack(stk_a);
-
+//	stack_index = indexing_stack_to_stack(stk_a);
+	indexing_stack_to_stack(stk_a);
+	ft_putstr("TEST");
+	//ft_print_stack(stack_index);
 	ft_putstr("\n\nEND OF PROGRAM\n");
 
-	//quicksort(stk_a);
 	return (1);
-}
-
-int	*indexing_stack_to_tab(node *stack_a)
-{
-	int		count;
-	node	*start_of_stack_a;
-	node	*stack_a_tmp;
-	int		*indexed_tab;
-	int		i;
-
-	indexed_tab = malloc(sizeof(int) * ft_stksize(stack_a));
-	i = 0;
-	start_of_stack_a = stack_a;
-	while (stack_a != NULL)
-	{
-		count = 0;
-		stack_a_tmp = start_of_stack_a;
-		while (stack_a_tmp != NULL)
-		{
-			if (stack_a->arg > stack_a_tmp->arg)
-				count++;
-			stack_a_tmp = stack_a_tmp->next;
-		}
-		stack_a = stack_a->next;
-		indexed_tab[i] = count;
-		ft_putnbr(indexed_tab[i]);
-		i++;
-	}
-	return (indexed_tab);
-}
-
-node	*indexing_stack_to_stack(node *stack_a)
-{
-	int count;
-	node	*start_of_stack_a;
-	node	*stack_a_tmp;
-	node	*indexed_stack;
-
-	start_of_stack_a = stack_a;
-	while (stack_a != NULL)
-	{
-		count = 0;
-		stack_a_tmp = start_of_stack_a;
-		while (stack_a_tmp != NULL)
-		{
-			if (stack_a->arg > stack_a_tmp->arg)
-				count++;
-			stack_a_tmp = stack_a_tmp->next;
-		}
-		stack_a = stack_a->next;
-		indexed_stack = ft_stkadd(indexed_stack, count);
-	}
-	return (indexed_stack);
-
 }
 
 int	check_for_error(int argc, char **argv)
 {
-	// ------------ Check if the args are all integrer
+// ------------ Check if the args are all integrer
 	if (checkif_isint(argv) == false)
 	{
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	// ------------ Check if the args are all number
+// ------------ Check if the args are all number
 	if (checkif_isdigit(argv) == false)
 	{
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	// ------------ Check if none of the number are repeated.
+// ------------ Check if none of the number are repeated.
 	if (checkif_repeated_number(argv) == true)
 	{
 		write(2, "Error\n", 6);
@@ -166,41 +104,27 @@ int	check_for_error(int argc, char **argv)
 // }
 
 /* Une fonction pour placer chaques arguments dans une structure
- * en pile */
-
-// stack	*push_argv_to_stk(char **argv)
-// {
-// 	stack	*stack_a;
-// 	int		i;
-
-// 	stack_a = ft_stknew(atoi(argv[1]));
-// 	i = 2;
-// 	while (argv[i])
-// 	{
-// 		stack_a = ft_stkadd(stack_a, atoi(argv[i]));
-// 		i++;
-// 	}
-// 	return (stack_a);
-// }
-
+ * en pile
+ */
 node	*push_argv_to_stk(int argc, char **argv)
 {
 	node	*stack_a;
+	int		i;
 
-	stack_a = ft_stknew(atoi(argv[argc]));
 	argc = (argc -1);
-	while (argc >= 1)
+	stack_a = ft_stknew(atoi(argv[argc]));
+	i = 1;
+	while (i < argc)
 	{
-		stack_a = ft_stkadd(stack_a, atoi(argv[argc]));
-		argc--;
+		stack_a = ft_stkadd(stack_a, atoi(argv[i]));
+		i++;
 	}
 	return (stack_a);
 }
 
-
 /* Une fonction pour vérifier si il s'agit bien d'un chiffre pour
- * chaques arguments vector (argv) */
-
+ * chaques arguments vector (argv)
+ */
 boolean	checkif_isdigit(char **argv)
 {
 	int	i;
