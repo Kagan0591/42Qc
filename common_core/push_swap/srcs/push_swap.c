@@ -36,7 +36,7 @@
  * 4. Enfin, tous les sous-tableaux sont fusionnés pour ne faire qu'un
  * tableau de « n » taille d'élément.*/
 
-// radix sort si j arrive pas a faire moi memm un algo, ile est performant et facile a implementer
+// radix sort si j arrive pas a faire moi memm un algo, il est performant et facile a implementer
 
 int	main (int argc, char **argv)
 {
@@ -53,14 +53,15 @@ int	main (int argc, char **argv)
 	ft_putnbr(argc);
 	ft_putstr("\n\n");
 // ------------ Add the data from argv to stk_a
-	if (check_for_error(argc - 1, argv) == 0)
+	if (check_for_error(argc - 1, argv) > 0)
 		return (0);
-	stk_a = push_argv_to_stk(argc - 1, argv);
+	stk_a = push_argv_to_stk(argc, argv);
 	ft_print_stack(stk_a);
 	ft_putstr("\n");
 //	stack_index = indexing_stack_to_stack(stk_a);
 	indexing_stack_to_stack(stk_a);
 	ft_putstr("TEST");
+
 	//ft_print_stack(stack_index);
 	ft_putstr("\n\nEND OF PROGRAM\n");
 
@@ -69,27 +70,15 @@ int	main (int argc, char **argv)
 
 int	check_for_error(int argc, char **argv)
 {
-// ------------ Check if the args are all integrer
-	if (checkif_isint(argv) == false)
-	{
-		write(2, "Error\n", 6);
-		return (0);
-	}
-// ------------ Check if the args are all number
-	if (checkif_isdigit(argv) == false)
-	{
-		write(2, "Error\n", 6);
-		return (0);
-	}
-// ------------ Check if none of the number are repeated.
-	if (checkif_repeated_number(argv) == true)
-	{
-		write(2, "Error\n", 6);
-		return (0);
-	}
 	if (argc == 0)
-		return (0);
-	return (1);
+		return (1);
+	if (checkif_isint(argv) == false)
+		return (write(2, "Error\n", 6));
+	if (checkif_isdigit(argv) == false)
+		return (write(2, "Error\n", 6));
+	if (checkif_repeated_number(argv) == true)
+		return (write(2, "Error\n", 6));
+	return (0);
 }
 
 
@@ -109,15 +98,13 @@ int	check_for_error(int argc, char **argv)
 node	*push_argv_to_stk(int argc, char **argv)
 {
 	node	*stack_a;
-	int		i;
-
-	argc = (argc -1);
+	argc = (argc - 1);
 	stack_a = ft_stknew(atoi(argv[argc]));
-	i = 1;
-	while (i < argc)
+	argc--;
+	while (argc > 0)
 	{
-		stack_a = ft_stkadd(stack_a, atoi(argv[i]));
-		i++;
+		stack_a = ft_stkadd(stack_a, atoi(argv[argc]));
+		argc--;
 	}
 	return (stack_a);
 }
