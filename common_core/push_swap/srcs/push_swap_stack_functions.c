@@ -113,6 +113,7 @@ int	*indexing_stack_to_tab(node *stack_a)
 	return (indexed_tab);
 }
 
+// Indexing via list doublement chainé
 node	*indexing_stack_to_stack(node *stack_a)
 {
 	int		count;

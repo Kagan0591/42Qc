@@ -44,33 +44,28 @@ int	main (int argc, char **argv)
 	// (void) argv;
 	node	*stk_a;
 //	stack	*stk_b;
-	node	*stack_index;
+	int		*args_index;
 //	stk_b = NULL;
-	// int i;
+// TEST
+	int		i;
 // ------------ Print the nbr of arg(s)
 // ft_printf("Le nombre d'argument passé est de %i incluant le nom du programme\n", argc);
 	ft_putstr("Le nombre d'argument passé, incluant le nom du programme, est de: ");
 	ft_putnbr(argc);
 	ft_putstr("\n\n");
-	// i = 1;
-	// while (i < argc)
-	// {
-	// 	ft_putstr(argv[i]);
-	// 	i++;
-	// }
-	// ft_putstr("\n\n");
-
 // ------------ Add the data from argv to stk_a
 	if (check_for_error(argc - 1, argv) > 0)
 		return (0);
 	stk_a = push_argv_to_stk(argc, argv);
 	ft_print_stack(stk_a);
 	ft_putstr("\n");
-	stack_index = indexing_stack_to_stack(stk_a);
-	indexing_stack_to_stack(stk_a);
-	ft_putstr("TEST");
-
-	//ft_print_stack(stack_index);
+	args_index = indexing_stack_to_tab(stk_a);
+	i = 0;
+	while (i < 4)
+	{
+		ft_putnbr(args_index[i]);
+		i++;
+	}
 	ft_putstr("\n\nEND OF PROGRAM\n");
 
 	return (1);
